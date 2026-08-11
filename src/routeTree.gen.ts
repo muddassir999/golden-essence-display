@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as GiftsRouteImport } from './routes/gifts'
 import { Route as SeriesSeriesNameRouteImport } from './routes/series.$seriesName'
 
 const IndexRoute = IndexRouteImport.update({
@@ -29,6 +30,11 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GiftsRoute = GiftsRouteImport.update({
+  id: '/gifts',
+  path: '/gifts',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SeriesSeriesNameRoute = SeriesSeriesNameRouteImport.update({
   id: '/series/$seriesName',
   path: '/series/$seriesName',
@@ -39,12 +45,14 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/gifts': typeof GiftsRoute
   '/series/$seriesName': typeof SeriesSeriesNameRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/gifts': typeof GiftsRoute
   '/series/$seriesName': typeof SeriesSeriesNameRoute
 }
 export interface FileRoutesById {
@@ -52,20 +60,23 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/gifts': typeof GiftsRoute
   '/series/$seriesName': typeof SeriesSeriesNameRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/contact' | '/series/$seriesName'
+  fullPaths: '/' | '/about' | '/contact' | '/gifts' | '/series/$seriesName'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/contact' | '/series/$seriesName'
-  id: '__root__' | '/' | '/about' | '/contact' | '/series/$seriesName'
+  to: '/' | '/about' | '/contact' | '/gifts' | '/series/$seriesName'
+  id:
+    '__root__' | '/' | '/about' | '/contact' | '/gifts' | '/series/$seriesName'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   ContactRoute: typeof ContactRoute
+  GiftsRoute: typeof GiftsRoute
   SeriesSeriesNameRoute: typeof SeriesSeriesNameRoute
 }
 
@@ -92,6 +103,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/gifts': {
+      id: '/gifts'
+      path: '/gifts'
+      fullPath: '/gifts'
+      preLoaderRoute: typeof GiftsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/series/$seriesName': {
       id: '/series/$seriesName'
       path: '/series/$seriesName'
@@ -106,6 +124,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   ContactRoute: ContactRoute,
+  GiftsRoute: GiftsRoute,
   SeriesSeriesNameRoute: SeriesSeriesNameRoute,
 }
 export const routeTree = rootRouteImport

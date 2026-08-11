@@ -14,14 +14,15 @@ const attarLinks = [
   { slug: "concentrated-oil-series", label: "Concentrated Oil Series" },
   { slug: "floral-attars", label: "Floral Attars" },
 ];
+const giftCollectionLinks = [
+  { slug: "gucci-series", label: "Gucci Series" },
+  { slug: "oud-series", label: "Oud Series" },
+  { slug: "gold-series", label: "Gold Series" },
+];
 
 function Logo({ onClick }: { onClick?: () => void }) {
   return (
-    <Link
-      to="/"
-      onClick={onClick}
-      className="flex min-w-0 shrink-0 items-center gap-2 sm:gap-3"
-    >
+    <Link to="/" onClick={onClick} className="flex min-w-0 shrink-0 items-center gap-2 sm:gap-3">
       <div className="grid h-10 w-10 shrink-0 place-items-center overflow-hidden rounded-sm border border-gold/50 bg-black sm:h-12 sm:w-12 md:h-14 md:w-14">
         <img
           src={logoImg}
@@ -43,13 +44,7 @@ function Logo({ onClick }: { onClick?: () => void }) {
   );
 }
 
-function Dropdown({
-  label,
-  links,
-}: {
-  label: string;
-  links: typeof perfumeLinks;
-}) {
+function Dropdown({ label, links }: { label: string; links: typeof perfumeLinks }) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -66,17 +61,13 @@ function Dropdown({
         {label}
 
         <ChevronDown
-          className={`h-4 w-4 transition-transform duration-200 ${
-            open ? "rotate-180" : ""
-          }`}
+          className={`h-4 w-4 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
         />
       </button>
 
       <div
         className={`absolute left-1/2 top-full z-50 w-72 -translate-x-1/2 rounded-sm border border-border bg-popover/95 p-2.5 shadow-xl backdrop-blur-xl transition-all duration-300 ${
-          open
-            ? "visible translate-y-0 opacity-100"
-            : "invisible -translate-y-2 opacity-0"
+          open ? "visible translate-y-0 opacity-100" : "invisible -translate-y-2 opacity-0"
         }`}
       >
         {links.map((l) => (
@@ -190,6 +181,10 @@ export function Navbar() {
           >
             Contact Us
           </Link>
+
+          <Dropdown label="Gifts" links={giftCollectionLinks} />
+
+         
         </div>
 
         {/* MOBILE + TABLET MENU BUTTON */}
@@ -229,19 +224,12 @@ export function Navbar() {
           </Link>
 
           {/* PERFUME */}
-          <MobileDropdown
-            label="Perfume"
-            links={perfumeLinks}
-            closeMenu={closeMobileMenu}
-          />
+          <MobileDropdown label="Perfume" links={perfumeLinks} closeMenu={closeMobileMenu} />
 
           {/* ATTAR */}
-          <MobileDropdown
-            label="Attar"
-            links={attarLinks}
-            closeMenu={closeMobileMenu}
-          />
+          <MobileDropdown label="Attar" links={attarLinks} closeMenu={closeMobileMenu} />
 
+    
           {/* ABOUT */}
           <Link
             to="/about"
@@ -259,6 +247,8 @@ export function Navbar() {
           >
             Contact Us
           </Link>
+
+          <MobileDropdown label="Gifts" links={giftCollectionLinks} closeMenu={closeMobileMenu} />     
         </div>
       </div>
     </header>

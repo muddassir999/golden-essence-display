@@ -1,18 +1,22 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowLeft, Search, ChevronLeft, ChevronRight, Clock3 } from "lucide-react";
+import {
+  ArrowLeft,
+  Search,
+  ChevronLeft,
+  ChevronRight,
+  Clock3,
+} from "lucide-react";
 import { ProductCard } from "@/components/ProductCard";
-import { products, seriesMap } from "@/data/products";
+import { products } from "@/data/products";
 import { motion } from "framer-motion";
 import { useMemo, useState } from "react";
 
-export const Route = createFileRoute("/series/$seriesName")({
-  head: ({ params }) => {
-    const info = seriesMap[params.seriesName];
-
-    const title = info ? `${info.title} — Al Misbah Perfumes` : "Collection — Al Misbah Perfumes";
+export const Route = createFileRoute("/perfume-series")({
+  head: () => {
+    const title = "Perfume Collection — Al Misbah Perfumes";
 
     const description =
-      info?.blurb ?? "Explore the luxury oriental fragrance collections of Al Misbah Perfumes.";
+      "Explore the complete Perfume Collection of Al Misbah Perfumes, featuring elegant eau de parfum, royal oud fragrances and long-lasting signature scents.";
 
     return {
       meta: [
@@ -35,18 +39,26 @@ export const Route = createFileRoute("/series/$seriesName")({
     };
   },
 
-  component: SeriesPage,
+  component: PerfumeSeries,
 });
 
-function SeriesPage() {
-  const { seriesName } = Route.useParams();
-
-  const info = seriesMap[seriesName];
-
+function PerfumeSeries() {
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
 
   const itemsPerPage = 8;
+
+  // =====================================================
+  // PERFUME COLLECTION
+  // =====================================================
+
+  const PERFUME_SERIES = ["royal-oud"];
+
+  // =====================================================
+  // COMING SOON
+  // =====================================================
+
+  const COMING_SOON = true;
 
   // =====================================================
   // FILTER PRODUCTS
@@ -56,19 +68,23 @@ function SeriesPage() {
     const query = searchQuery.trim().toLowerCase();
 
     return products.filter((product) => {
-      const matchesSeries = product.series === seriesName;
+      const matchesSeries = PERFUME_SERIES.includes(product.series);
 
-      const matchesSearch = query === "" || product.name.toLowerCase().includes(query);
+      const matchesSearch =
+        query === "" || product.name.toLowerCase().includes(query);
 
       return matchesSeries && matchesSearch;
     });
-  }, [seriesName, searchQuery]);
+  }, [searchQuery]);
 
   // =====================================================
   // PAGINATION
   // =====================================================
 
-  const totalPages = Math.max(1, Math.ceil(filteredItems.length / itemsPerPage));
+  const totalPages = Math.max(
+    1,
+    Math.ceil(filteredItems.length / itemsPerPage),
+  );
 
   const paginatedItems = useMemo(() => {
     const start = (currentPage - 1) * itemsPerPage;
@@ -80,7 +96,9 @@ function SeriesPage() {
   // SEARCH
   // =====================================================
 
-  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearchChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     setSearchQuery(event.target.value);
     setCurrentPage(1);
   };
@@ -126,68 +144,100 @@ function SeriesPage() {
       "
     >
       {/* =====================================================
-          HEADER SECTION WITH PROFESSIONAL BACK BUTTON INTEGRATION
+          HEADER SECTION
       ===================================================== */}
 
       <div className="relative mb-8 sm:mb-12">
         {/* BACK TO HOME BUTTON */}
+
         <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-          className="mb-5 flex justify-start lg:absolute lg:left-0 lg:top-0 lg:mb-0"
+          initial={{
+            opacity: 0,
+            y: -10,
+          }}
+          animate={{
+            opacity: 1,
+            y: 0,
+          }}
+          transition={{
+            duration: 0.5,
+            ease: "easeOut",
+          }}
+          className="
+            mb-5
+            flex
+            justify-start
+
+            lg:absolute
+            lg:left-0
+            lg:top-0
+            lg:mb-0
+          "
         >
           <Link
             to="/"
             className="
-      group
-      inline-flex
-      items-center
-      gap-2
-      rounded-full
-      border
-      border-[#d4af37]/40
-      bg-white
-      px-3.5
-      py-1.5
-      text-[9px]
-      font-medium
-      uppercase
-      tracking-[0.15em]
-      text-black
-      transition-all
-      duration-300
+              group
+              inline-flex
+              items-center
+              gap-2
 
-      hover:border-[#d4af37]
-      hover:bg-white
-      hover:text-black
-      hover:shadow-[0_0_15px_rgba(212,175,55,0.15)]
+              rounded-full
 
-      sm:px-5
-      sm:py-2.5
-      sm:text-[11px]
-      sm:tracking-[0.22em]
-    "
+              border
+              border-[#d4af37]/40
+
+              bg-white
+
+              px-3.5
+              py-1.5
+
+              text-[9px]
+              font-medium
+              uppercase
+              tracking-[0.15em]
+
+              text-black
+
+              transition-all
+              duration-300
+
+              hover:border-[#d4af37]
+              hover:bg-white
+              hover:text-black
+              hover:shadow-[0_0_15px_rgba(212,175,55,0.15)]
+
+              sm:px-5
+              sm:py-2.5
+              sm:text-[11px]
+              sm:tracking-[0.22em]
+            "
           >
             <ArrowLeft
               className="
-        h-3
-        w-3
-        shrink-0
-        text-black
-        transition-transform
-        duration-300
-        group-hover:-translate-x-1
-        group-hover:text-black
-        sm:h-4
-        sm:w-4
-      "
+                h-3
+                w-3
+                shrink-0
+
+                text-black
+
+                transition-transform
+                duration-300
+
+                group-hover:-translate-x-1
+                group-hover:text-black
+
+                sm:h-4
+                sm:w-4
+              "
             />
 
             <span>Back to Home</span>
           </Link>
         </motion.div>
-        {/* MAIN HEADER CONTENT (Centered) */}
+
+        {/* MAIN HEADER CONTENT */}
+
         <motion.header
           initial={{
             opacity: 0,
@@ -227,7 +277,7 @@ function SeriesPage() {
               lg:text-[34px]
             "
           >
-            {info?.arabic ?? "المصباح"}
+            عطور الملكية
           </p>
 
           {/* TITLE */}
@@ -256,7 +306,7 @@ function SeriesPage() {
               xl:text-[4.5rem]
             "
           >
-            {info?.title ?? "Collection Not Found"}
+            Perfume Collection
           </h1>
 
           {/* GOLD LINE */}
@@ -296,17 +346,19 @@ function SeriesPage() {
               lg:leading-7
             "
           >
-            {info?.blurb ??
-              "This collection is not part of our current catalogue. Explore our other series from the menu above."}
+            Explore the complete Perfume Collection of Al Misbah Perfumes,
+            featuring elegant eau de parfum, royal oud fragrances and
+            long-lasting signature scents.
           </p>
         </motion.header>
       </div>
 
       {/* =====================================================
-          COMING SOON (Professional Redesign for Desktop/Mobile)
+          COMING SOON
+          EXACT SAME DESIGN AS /series/$seriesName
       ===================================================== */}
 
-      {info?.comingSoon === true ? (
+      {COMING_SOON ? (
         <motion.section
           initial={{
             opacity: 0,
@@ -364,6 +416,7 @@ function SeriesPage() {
             "
           >
             {/* TOP ACCENT BORDER LIGHT */}
+
             <div
               className="
                 absolute
@@ -371,6 +424,7 @@ function SeriesPage() {
                 right-0
                 top-0
                 h-[2px]
+
                 bg-gradient-to-r
                 from-transparent
                 via-[#d4af37]
@@ -379,42 +433,65 @@ function SeriesPage() {
             />
 
             {/* AMBIENT BACKGROUND GLOW */}
+
             <div
               className="
                 pointer-events-none
                 absolute
                 left-1/2
                 top-1/3
+
                 h-72
                 w-72
+
                 -translate-x-1/2
                 -translate-y-1/2
+
                 rounded-full
+
                 bg-[#d4af37]/[0.08]
+
                 blur-[100px]
               "
             />
 
             {/* CLOCK ICON CONTAINER */}
+
             <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
+              initial={{
+                opacity: 0,
+                scale: 0.8,
+              }}
+              animate={{
+                opacity: 1,
+                scale: 1,
+              }}
+              transition={{
+                duration: 0.5,
+                delay: 0.4,
+              }}
               className="
                 relative
                 mx-auto
                 flex
+
                 h-16
                 w-16
+
                 items-center
                 justify-center
+
                 rounded-2xl
+
                 border
                 border-[#d4af37]/40
+
                 bg-gradient-to-br
                 from-[#d4af37]/15
                 to-black
+
                 shadow-[0_0_30px_rgba(212,175,55,0.15)]
+
                 sm:h-20
                 sm:w-20
                 sm:rounded-3xl
@@ -424,7 +501,9 @@ function SeriesPage() {
                 className="
                   h-7
                   w-7
+
                   text-[#d4af37]
+
                   sm:h-9
                   sm:w-9
                 "
@@ -432,15 +511,19 @@ function SeriesPage() {
             </motion.div>
 
             {/* BRAND SUBTITLE */}
+
             <p
               className="
                 relative
                 mt-6
+
                 text-[10px]
                 font-semibold
                 uppercase
                 tracking-[0.35em]
+
                 text-[#d4af37]
+
                 sm:text-xs
                 sm:tracking-[0.45em]
               "
@@ -449,15 +532,19 @@ function SeriesPage() {
             </p>
 
             {/* MAIN HEADING */}
+
             <h2
               className="
                 relative
                 mt-3
+
                 font-display
                 text-3xl
                 font-medium
                 tracking-wide
+
                 text-white
+
                 sm:text-4xl
                 md:text-5xl
               "
@@ -466,58 +553,78 @@ function SeriesPage() {
             </h2>
 
             {/* GOLD DIVIDER */}
+
             <div
               className="
                 relative
                 mx-auto
                 mt-5
+
                 h-px
                 w-20
+
                 bg-gradient-to-r
                 from-transparent
                 via-[#d4af37]/70
                 to-transparent
+
                 sm:w-32
               "
             />
 
             {/* DESCRIPTIVE TEXT */}
+
             <p
               className="
                 relative
                 mx-auto
                 mt-5
+
                 max-w-[520px]
+
                 text-xs
                 leading-relaxed
+
                 text-white/70
+
                 sm:text-sm
                 sm:leading-loose
               "
             >
               Our exclusive{" "}
-              <span className="font-medium text-[#d4af37]">{info?.title ?? "collection"}</span> is
-              currently being crafted to absolute perfection.
+              <span className="font-medium text-[#d4af37]">
+                Perfume Collection
+              </span>{" "}
+              is currently being crafted to absolute perfection.
               <br className="hidden sm:block" />
-              Prepare to experience a new dimension of luxury oriental fragrance.
+              Prepare to experience a new dimension of luxury oriental
+              fragrance.
             </p>
 
             {/* STATUS BADGE */}
+
             <div
               className="
                 relative
                 mx-auto
                 mt-8
+
                 inline-flex
                 items-center
                 gap-2.5
+
                 rounded-full
+
                 border
                 border-[#d4af37]/25
+
                 bg-[#d4af37]/[0.06]
+
                 px-5
                 py-2
+
                 backdrop-blur-sm
+
                 sm:mt-10
                 sm:px-6
                 sm:py-2.5
@@ -527,19 +634,26 @@ function SeriesPage() {
                 className="
                   h-2
                   w-2
+
                   rounded-full
+
                   bg-[#d4af37]
+
                   shadow-[0_0_10px_rgba(212,175,55,0.9)]
+
                   animate-pulse
                 "
               />
+
               <span
                 className="
                   text-[10px]
                   font-medium
                   uppercase
                   tracking-[0.2em]
+
                   text-white/80
+
                   sm:text-[11px]
                 "
               >
@@ -550,11 +664,13 @@ function SeriesPage() {
         </motion.section>
       ) : (
         /* =====================================================
-            NORMAL PRODUCTS
-            WHEN comingSoon !== true
+           NORMAL PRODUCTS
+           COMING SOON FALSE HONE PAR YE UI SHOW HOGA
         ===================================================== */
 
         <>
+          {/* SEARCH */}
+
           <motion.div
             initial={{
               opacity: 0,
@@ -580,8 +696,6 @@ function SeriesPage() {
             "
           >
             <div className="group relative w-full">
-              {/* SEARCH ICON */}
-
               <Search
                 className="
                   pointer-events-none
@@ -609,8 +723,6 @@ function SeriesPage() {
                   sm:w-[18px]
                 "
               />
-
-              {/* INPUT */}
 
               <input
                 type="text"
@@ -667,8 +779,6 @@ function SeriesPage() {
                 "
               />
 
-              {/* GOLD FOCUS LINE */}
-
               <div
                 className="
                   pointer-events-none
@@ -694,6 +804,8 @@ function SeriesPage() {
               />
             </div>
           </motion.div>
+
+          {/* PRODUCTS */}
 
           {paginatedItems.length > 0 ? (
             <>
@@ -773,6 +885,8 @@ function SeriesPage() {
                 ))}
               </motion.div>
 
+              {/* PAGINATION */}
+
               {totalPages > 1 && (
                 <motion.div
                   initial={{
@@ -818,7 +932,9 @@ function SeriesPage() {
 
                   <button
                     type="button"
-                    onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                    onClick={() =>
+                      setCurrentPage((prev) => Math.max(prev - 1, 1))
+                    }
                     disabled={currentPage === 1}
                     aria-label="Previous page"
                     className="
@@ -900,18 +1016,26 @@ function SeriesPage() {
                       sm:tracking-widest
                     "
                   >
-                    <strong className="text-[#d4af37]">{currentPage}</strong>
+                    <strong className="text-[#d4af37]">
+                      {currentPage}
+                    </strong>
 
                     <span className="mx-1.5 opacity-40">/</span>
 
-                    <strong className="text-foreground">{totalPages}</strong>
+                    <strong className="text-foreground">
+                      {totalPages}
+                    </strong>
                   </div>
 
                   {/* NEXT */}
 
                   <button
                     type="button"
-                    onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                    onClick={() =>
+                      setCurrentPage((prev) =>
+                        Math.min(prev + 1, totalPages),
+                      )
+                    }
                     disabled={currentPage === totalPages}
                     aria-label="Next page"
                     className="
@@ -963,6 +1087,8 @@ function SeriesPage() {
               )}
             </>
           ) : (
+            /* NO PRODUCTS */
+
             <motion.div
               initial={{
                 opacity: 0,

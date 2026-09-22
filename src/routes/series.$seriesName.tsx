@@ -28,13 +28,10 @@ export const Route = createFileRoute("/series/$seriesName")({
   head: ({ params }) => {
     const info = seriesMap[params.seriesName];
 
-    const title = info
-      ? `${info.title} — Al Misbah Perfumes`
-      : "Collection — Al Misbah Perfumes";
+    const title = info ? `${info.title} — Al Misbah Perfumes` : "Collection — Al Misbah Perfumes";
 
     const description =
-      info?.blurb ??
-      "Explore the luxury oriental fragrance collections of Al Misbah Perfumes.";
+      info?.blurb ?? "Explore the luxury oriental fragrance collections of Al Misbah Perfumes.";
 
     return {
       meta: [
@@ -83,7 +80,7 @@ type SeriesProduct = {
 
 type CartNotification = {
   name: string;
-  image?: string;
+  image?: string | undefined; // Allow explicit undefined
   quantity: number;
 };
 
@@ -94,12 +91,7 @@ type CartNotification = {
 const GOLD = "#d4af37";
 const GOLD_LIGHT = "#f5d76e";
 
-const defaultBadges = [
-  "BEST SELLER",
-  "POPULAR CHOICE",
-  "LUXURY FRAGRANCE",
-  "ICONIC SCENT",
-];
+const defaultBadges = ["BEST SELLER", "POPULAR CHOICE", "LUXURY FRAGRANCE", "ICONIC SCENT"];
 
 /* ================================================================
    ADD TO CART NOTIFICATION
@@ -154,10 +146,7 @@ function AddToCartNotification({
                 </p>
 
                 <p className="mt-1 text-[9px] uppercase tracking-wider text-white/40">
-                  Quantity:{" "}
-                  <span className="text-[#f5d76e]">
-                    {notification.quantity}
-                  </span>
+                  Quantity: <span className="text-[#f5d76e]">{notification.quantity}</span>
                 </p>
               </div>
 
@@ -188,13 +177,7 @@ function AddToCartNotification({
    STAR RATING
 ================================================================ */
 
-function ProductRating({
-  rating,
-  reviews,
-}: {
-  rating?: number;
-  reviews?: number;
-}) {
+function ProductRating({ rating, reviews }: { rating?: number; reviews?: number }) {
   if (rating === undefined) return null;
 
   const fullStars = Math.floor(rating);
@@ -208,25 +191,15 @@ function ProductRating({
           const half = index === fullStars && hasHalfStar;
 
           return (
-            <span
-              key={index}
-              className="relative block h-3.5 w-3.5 sm:h-4 sm:w-4"
-            >
+            <span key={index} className="relative block h-3.5 w-3.5 sm:h-4 sm:w-4">
               <Star
                 className="absolute inset-0 h-3.5 w-3.5 text-[#d4af37]/25 sm:h-4 sm:w-4"
                 fill="#18150c"
               />
 
               {(full || half) && (
-                <span
-                  className={`absolute inset-0 overflow-hidden ${
-                    half ? "w-1/2" : "w-full"
-                  }`}
-                >
-                  <Star
-                    className="h-3.5 w-3.5 text-[#f0c94b] sm:h-4 sm:w-4"
-                    fill="#f0c94b"
-                  />
+                <span className={`absolute inset-0 overflow-hidden ${half ? "w-1/2" : "w-full"}`}>
+                  <Star className="h-3.5 w-3.5 text-[#f0c94b] sm:h-4 sm:w-4" fill="#f0c94b" />
                 </span>
               )}
             </span>
@@ -277,16 +250,12 @@ function SeriesProductCard({
      CART
   ================================================================= */
 
-  const currentCartItem = cart.find(
-    (item) => item.product.id === productId,
-  );
+  const currentCartItem = cart.find((item) => item.product.id === productId);
 
   const currentQuantity = currentCartItem?.quantity ?? 0;
   const isInCart = currentQuantity > 0;
 
-  const badgeText =
-    product.badge ??
-    defaultBadges[index % defaultBadges.length];
+  const badgeText = product.badge ?? defaultBadges[index % defaultBadges.length];
 
   const featureIcons = [Flower2, Leaf, Clock3];
 
@@ -296,9 +265,7 @@ function SeriesProductCard({
     .filter(Boolean);
 
   const featureNames =
-    noteParts.length > 0
-      ? noteParts.slice(0, 3)
-      : ["Premium Quality", "Long Lasting", "Luxury"];
+    noteParts.length > 0 ? noteParts.slice(0, 3) : ["Premium Quality", "Long Lasting", "Luxury"];
 
   /* ================================================================
      ADD TO CART
@@ -404,11 +371,7 @@ function SeriesProductCard({
               object-contain object-center
               drop-shadow-[0_20px_28px_rgba(0,0,0,0.85)]
               transition-all duration-500
-              ${
-                isOutOfStock
-                  ? "grayscale-[0.25] opacity-55"
-                  : ""
-              }
+              ${isOutOfStock ? "grayscale-[0.25] opacity-55" : ""}
             `}
           />
         ) : (
@@ -434,11 +397,7 @@ function SeriesProductCard({
               shadow-[0_8px_25px_rgba(0,0,0,0.5)]
               backdrop-blur-md
               sm:left-4 sm:top-4 sm:h-14 sm:w-14 sm:rounded-2xl
-              ${
-                isOutOfStock
-                  ? "opacity-50"
-                  : ""
-              }
+              ${isOutOfStock ? "opacity-50" : ""}
             `}
           >
             <span className="font-display text-[13px] font-bold leading-none text-[#f7df7d] sm:text-[17px]">
@@ -461,11 +420,7 @@ function SeriesProductCard({
             shadow-[0_8px_25px_rgba(0,0,0,0.5)]
             backdrop-blur-md
             sm:right-4 sm:top-4 sm:h-14 sm:w-14 sm:rounded-2xl
-            ${
-              isOutOfStock
-                ? "opacity-50"
-                : ""
-            }
+            ${isOutOfStock ? "opacity-50" : ""}
           `}
         >
           <Crown className="mb-1 h-3.5 w-3.5 text-[#f5d76e] sm:h-4 sm:w-4" />
@@ -480,9 +435,7 @@ function SeriesProductCard({
         <button
           type="button"
           aria-label={
-            liked
-              ? `Remove ${product.name} from wishlist`
-              : `Add ${product.name} to wishlist`
+            liked ? `Remove ${product.name} from wishlist` : `Add ${product.name} to wishlist`
           }
           onClick={() => setLiked((value) => !value)}
           className="
@@ -500,9 +453,7 @@ function SeriesProductCard({
         >
           <Heart
             className={`h-4 w-4 transition-all ${
-              liked
-                ? "fill-[#d4af37] text-[#d4af37]"
-                : "text-[#f5d76e]"
+              liked ? "fill-[#d4af37] text-[#d4af37]" : "text-[#f5d76e]"
             }`}
           />
         </button>
@@ -590,19 +541,15 @@ function SeriesProductCard({
         {/* Rating */}
 
         <ProductRating
-          rating={product.rating}
-          reviews={product.reviews}
+          {...(product.rating !== undefined && { rating: product.rating })}
+          {...(product.reviews !== undefined && { reviews: product.reviews })}
         />
 
         {/* Features */}
 
         <div className="mt-3 grid grid-cols-3 gap-1.5 sm:mt-4 sm:gap-2">
           {featureNames.map((feature, featureIndex) => {
-            const Icon =
-              featureIcons[
-                featureIndex %
-                  featureIcons.length
-              ];
+            const Icon = featureIcons[featureIndex % featureIcons.length] ?? Flower2;
 
             return (
               <div
@@ -624,9 +571,7 @@ function SeriesProductCard({
               >
                 <Icon className="h-2.5 w-2.5 shrink-0 text-[#d4af37] sm:h-3 sm:w-3" />
 
-                <span className="truncate">
-                  {feature}
-                </span>
+                <span className="truncate">{feature}</span>
               </div>
             );
           })}
@@ -682,11 +627,7 @@ function SeriesProductCard({
                   tracking-wider
                   text-[#f5d76e]
                   sm:px-2.5 sm:text-[8px]
-                  ${
-                    isOutOfStock
-                      ? "opacity-50"
-                      : ""
-                  }
+                  ${isOutOfStock ? "opacity-50" : ""}
                 `}
               >
                 {product.discount}% OFF
@@ -697,7 +638,6 @@ function SeriesProductCard({
           {product.discount !== undefined && (
             <div className="mt-2 flex items-center gap-1.5 text-[7px] font-semibold uppercase tracking-[0.12em] text-white/30 sm:text-[8px]">
               <Sparkles className="h-2.5 w-2.5 text-[#d4af37] sm:h-3 sm:w-3" />
-
               Special Luxury Price
             </div>
           )}
@@ -763,11 +703,9 @@ function SeriesProductCard({
           >
             {/* Shine only when available */}
 
-            {!isOutOfStock &&
-              !added &&
-              !isInCart && (
-                <span className="pointer-events-none absolute inset-y-0 -left-14 w-8 skew-x-[-20deg] bg-white/40 transition-all duration-700 group-hover/cart:left-[120%]" />
-              )}
+            {!isOutOfStock && !added && !isInCart && (
+              <span className="pointer-events-none absolute inset-y-0 -left-14 w-8 skew-x-[-20deg] bg-white/40 transition-all duration-700 group-hover/cart:left-[120%]" />
+            )}
 
             {/* ======================================================
                 OUT OF STOCK
@@ -851,14 +789,10 @@ function ComingSoon({ title }: { title?: string }) {
         <div className="relative mx-auto mt-5 h-px w-20 bg-gradient-to-r from-transparent via-[#d4af37] to-transparent sm:w-28" />
 
         <p className="relative mx-auto mt-6 max-w-[600px] text-[11px] leading-6 text-white/50 sm:text-base sm:leading-8">
-          Our exclusive{" "}
-          <span className="font-medium text-[#d4af37]">
-            {title ?? "collection"}
-          </span>{" "}
+          Our exclusive <span className="font-medium text-[#d4af37]">{title ?? "collection"}</span>{" "}
           is currently being crafted to absolute perfection.
           <br className="hidden sm:block" />
-          Prepare to experience a new dimension of luxury oriental
-          fragrance.
+          Prepare to experience a new dimension of luxury oriental fragrance.
         </p>
 
         <div className="relative mx-auto mt-8 inline-flex max-w-full items-center gap-2 rounded-full border border-[#d4af37]/25 bg-[#d4af37]/[0.05] px-4 py-2.5 sm:px-5">
@@ -877,13 +811,7 @@ function ComingSoon({ title }: { title?: string }) {
    EMPTY STATE
 ================================================================ */
 
-function EmptyState({
-  searchQuery,
-  onClear,
-}: {
-  searchQuery: string;
-  onClear: () => void;
-}) {
+function EmptyState({ searchQuery, onClear }: { searchQuery: string; onClear: () => void }) {
   return (
     <motion.section
       initial={{ opacity: 0, y: 20 }}
@@ -899,10 +827,7 @@ function EmptyState({
         <div className="relative mx-auto flex h-20 w-20 items-center justify-center rounded-full border border-[#d4af37]/30 bg-gradient-to-br from-[#d4af37]/10 via-black to-black shadow-[0_0_40px_rgba(212,175,55,0.1)] sm:h-24 sm:w-24">
           <div className="absolute inset-2 rounded-full border border-[#d4af37]/10" />
 
-          <Search
-            className="relative h-7 w-7 text-[#d4af37] sm:h-9 sm:w-9"
-            strokeWidth={1.5}
-          />
+          <Search className="relative h-7 w-7 text-[#d4af37] sm:h-9 sm:w-9" strokeWidth={1.5} />
         </div>
 
         <p className="relative mt-6 text-[8px] font-semibold uppercase tracking-[0.25em] text-[#d4af37]/80 sm:text-xs">
@@ -919,10 +844,7 @@ function EmptyState({
           {searchQuery.trim() ? (
             <>
               We couldn't find a fragrance matching{" "}
-              <span className="font-medium text-[#d4af37]">
-                "{searchQuery.trim()}"
-              </span>
-              .
+              <span className="font-medium text-[#d4af37]">"{searchQuery.trim()}"</span>.
             </>
           ) : (
             "There are no fragrances available in this collection yet."
@@ -987,15 +909,11 @@ function Pagination({
       </button>
 
       <div className="flex h-9 min-w-[58px] items-center justify-center rounded-full border border-[#d4af37]/20 bg-[#d4af37]/[0.05] px-3 text-[10px] tracking-wider text-white/40 sm:h-10 sm:min-w-[70px] sm:text-xs">
-        <strong className="text-[#d4af37]">
-          {currentPage}
-        </strong>
+        <strong className="text-[#d4af37]">{currentPage}</strong>
 
         <span className="mx-1 opacity-30">/</span>
 
-        <strong className="text-white/75">
-          {totalPages}
-        </strong>
+        <strong className="text-white/75">{totalPages}</strong>
       </div>
 
       <button
@@ -1027,8 +945,7 @@ function SeriesPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
 
-  const [cartNotification, setCartNotification] =
-    useState<CartNotification | null>(null);
+  const [cartNotification, setCartNotification] = useState<CartNotification | null>(null);
 
   const itemsPerPage = 8;
 
@@ -1048,16 +965,11 @@ function SeriesPage() {
         return true;
       }
 
-      const productName =
-        product.name?.toLowerCase() ?? "";
+      const productName = product.name?.toLowerCase() ?? "";
 
-      const productNotes =
-        product.notes?.toLowerCase() ?? "";
+      const productNotes = product.notes?.toLowerCase() ?? "";
 
-      return (
-        productName.includes(query) ||
-        productNotes.includes(query)
-      );
+      return productName.includes(query) || productNotes.includes(query);
     });
   }, [seriesName, searchQuery]);
 
@@ -1065,12 +977,7 @@ function SeriesPage() {
      PAGINATION
   ================================================================= */
 
-  const totalPages = Math.max(
-    1,
-    Math.ceil(
-      filteredItems.length / itemsPerPage,
-    ),
-  );
+  const totalPages = Math.max(1, Math.ceil(filteredItems.length / itemsPerPage));
 
   useEffect(() => {
     if (currentPage > totalPages) {
@@ -1079,25 +986,16 @@ function SeriesPage() {
   }, [currentPage, totalPages]);
 
   const paginatedItems = useMemo(() => {
-    const start =
-      (currentPage - 1) * itemsPerPage;
+    const start = (currentPage - 1) * itemsPerPage;
 
-    return filteredItems.slice(
-      start,
-      start + itemsPerPage,
-    );
-  }, [
-    filteredItems,
-    currentPage,
-  ]);
+    return filteredItems.slice(start, start + itemsPerPage);
+  }, [filteredItems, currentPage]);
 
   /* ================================================================
      SEARCH
   ================================================================= */
 
-  const handleSearchChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
     setCurrentPage(1);
   };
@@ -1106,9 +1004,7 @@ function SeriesPage() {
      CART
   ================================================================= */
 
-  const handleAddedToCart = (
-    notification: CartNotification,
-  ) => {
+  const handleAddedToCart = (notification: CartNotification) => {
     setCartNotification(notification);
   };
 
@@ -1119,8 +1015,7 @@ function SeriesPage() {
       setCartNotification(null);
     }, 3000);
 
-    return () =>
-      window.clearTimeout(timeout);
+    return () => window.clearTimeout(timeout);
   }, [cartNotification]);
 
   /* ================================================================
@@ -1133,9 +1028,7 @@ function SeriesPage() {
     <>
       <AddToCartNotification
         notification={cartNotification}
-        onClose={() =>
-          setCartNotification(null)
-        }
+        onClose={() => setCartNotification(null)}
       />
 
       <motion.main
@@ -1330,10 +1223,7 @@ function SeriesPage() {
 
                   <span className="text-[6px] font-medium uppercase tracking-[0.16em] text-white/35 sm:text-[8px] sm:tracking-[0.2em]">
                     {filteredItems.length} Fragrance
-                    {filteredItems.length !== 1
-                      ? "s"
-                      : ""}{" "}
-                    Available
+                    {filteredItems.length !== 1 ? "s" : ""} Available
                   </span>
 
                   <span className="h-px w-5 bg-[#d4af37]/25 sm:w-10" />
@@ -1367,23 +1257,14 @@ function SeriesPage() {
                       2xl:gap-8
                     "
                   >
-                    {paginatedItems.map(
-                      (product, index) => (
-                        <SeriesProductCard
-                          key={
-                            product.id ??
-                            product.name
-                          }
-                          product={
-                            product as SeriesProduct
-                          }
-                          index={index}
-                          onAdded={
-                            handleAddedToCart
-                          }
-                        />
-                      ),
-                    )}
+                    {paginatedItems.map((product, index) => (
+                      <SeriesProductCard
+                        key={product.id ?? product.name}
+                        product={product as SeriesProduct}
+                        index={index}
+                        onAdded={handleAddedToCart}
+                      />
+                    ))}
                   </motion.div>
 
                   {/* Pagination */}
@@ -1391,19 +1272,8 @@ function SeriesPage() {
                   <Pagination
                     currentPage={currentPage}
                     totalPages={totalPages}
-                    onPrevious={() =>
-                      setCurrentPage((page) =>
-                        Math.max(page - 1, 1),
-                      )
-                    }
-                    onNext={() =>
-                      setCurrentPage((page) =>
-                        Math.min(
-                          page + 1,
-                          totalPages,
-                        ),
-                      )
-                    }
+                    onPrevious={() => setCurrentPage((page) => Math.max(page - 1, 1))}
+                    onNext={() => setCurrentPage((page) => Math.min(page + 1, totalPages))}
                   />
                 </>
               ) : (

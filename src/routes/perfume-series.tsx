@@ -10,6 +10,7 @@ import {
   Heart,
   ShoppingCart,
   Star,
+  Flower2, // <-- Add Flower2 here
 } from "lucide-react";
 
 import { motion } from "framer-motion";
@@ -395,8 +396,7 @@ function PerfumePageProductCard({
 
         <div className="mt-3 grid grid-cols-3 gap-1.5 sm:mt-4 sm:gap-2">
           {featureNames.map((feature, featureIndex) => {
-            const Icon = featureIcons[featureIndex % featureIcons.length];
-
+            const Icon = featureIcons[featureIndex % featureIcons.length] ?? Flower2;
             return (
               <div
                 key={`${feature}-${featureIndex}`}

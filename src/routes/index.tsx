@@ -60,7 +60,7 @@ const heroSlides = [
     description:
       "Alcohol-free oriental perfumes and hand-distilled attars,Taif rose and pure botanical musk — in the Arabian tradition since 2021.",
     button: "Explore Collection",
-    series: "royal-oud",
+    series: "signature-edp",
   },
   {
     image: origin8,
@@ -473,48 +473,22 @@ function Index() {
           xl:mt-7
         "
             >
-              <Link
-                to={currentHero.series === "attar-series" ? "/attar-series" : "/series/$seriesName"}
-                params={
-                  currentHero.series === "attar-series"
-                    ? undefined
-                    : {
-                        seriesName: currentHero.series,
-                      }
-                }
-                className="
-    inline-flex
-    min-h-[34px]
-    items-center
-    justify-center
-    rounded-sm
-    bg-gilded
-    px-3
-    py-1.5
-    whitespace-nowrap
-    text-[8.5px]
-    font-semibold
-    uppercase
-    tracking-[0.1em]
-    text-primary-foreground
-    transition-all
-    duration-300
-    hover:scale-[1.03]
-    hover:shadow-[0_8px_25px_rgba(212,175,55,0.30)]
-    sm:min-h-[40px]
-    sm:px-6
-    sm:text-[10px]
-    md:min-h-[42px]
-    md:px-7
-    lg:min-h-[44px]
-    lg:px-8
-    xl:min-h-[46px]
-    xl:px-9
-    xl:text-[11px]
-  "
-              >
-                {currentHero.button}
-              </Link>
+          {currentHero.series === "attar-series" ? (
+  <Link
+    to="/attar-series"
+    className="inline-flex min-h-[34px] items-center justify-center rounded-sm bg-gilded px-3 py-1.5 whitespace-nowrap text-[8.5px] font-semibold uppercase tracking-[0.1em] text-primary-foreground transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_8px_25px_rgba(212,175,55,0.30)] sm:min-h-[40px] sm:px-6 sm:text-[10px] md:min-h-[42px] md:px-7 lg:min-h-[44px] lg:px-8 xl:min-h-[46px] xl:px-9 xl:text-[11px]"
+  >
+    View Collection
+  </Link>
+) : (
+  <Link
+    to="/series/$seriesName"
+    params={{ seriesName: currentHero.series }}
+    className="inline-flex min-h-[34px] items-center justify-center rounded-sm bg-gilded px-3 py-1.5 whitespace-nowrap text-[8.5px] font-semibold uppercase tracking-[0.1em] text-primary-foreground transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_8px_25px_rgba(212,175,55,0.30)] sm:min-h-[40px] sm:px-6 sm:text-[10px] md:min-h-[42px] md:px-7 lg:min-h-[44px] lg:px-8 xl:min-h-[46px] xl:px-9 xl:text-[11px]"
+  >
+    View Collection
+  </Link>
+)}
             </motion.div>
           </div>
         </div>

@@ -48,14 +48,7 @@ type CartToast = {
    CONSTANTS
 ========================================================= */
 
-const ATTAR_SERIES = [
-  "floral",
-  "sweet",
-  "woody",
-  "oud-oudh",
-  "fresh",
-  "traditional",
-];
+const ATTAR_SERIES = ["floral", "sweet", "woody", "oud-oudh", "fresh", "traditional"];
 
 const ITEMS_PER_PAGE = 8;
 
@@ -177,47 +170,28 @@ function productHasSeries(product: Product, category: string) {
   const series = product?.series;
 
   if (Array.isArray(series)) {
-    return series.some(
-      (item) => normalizeSeries(item) === category,
-    );
+    return series.some((item) => normalizeSeries(item) === category);
   }
 
   return normalizeSeries(series) === category;
 }
 
 function getProductPrice(product: Product) {
-  return getNumericValue(
-    product?.price ??
-      product?.salePrice ??
-      product?.sellingPrice,
-    0,
-  );
+  return getNumericValue(product?.price ?? product?.salePrice ?? product?.sellingPrice, 0);
 }
 
 function getProductMrp(product: Product, price: number) {
-  const mrp = getNumericValue(
-    product?.mrp ??
-      product?.originalPrice ??
-      product?.oldPrice,
-    0,
-  );
+  const mrp = getNumericValue(product?.mrp ?? product?.originalPrice ?? product?.oldPrice, 0);
 
   return mrp > price ? mrp : 0;
 }
 
-function getProductDiscount(
-  product: Product,
-  price: number,
-  mrp: number,
-) {
+function getProductDiscount(product: Product, price: number, mrp: number) {
   if (mrp > price) {
     return Math.round(((mrp - price) / mrp) * 100);
   }
 
-  return getNumericValue(
-    product?.discount ?? product?.discountPercentage,
-    0,
-  );
+  return getNumericValue(product?.discount ?? product?.discountPercentage, 0);
 }
 
 /* =========================================================
@@ -367,10 +341,7 @@ function CartToastNotification({
                       bg-[#d4af37]
                     "
                   >
-                    <Check
-                      className="h-3 w-3 text-black"
-                      strokeWidth={3}
-                    />
+                    <Check className="h-3 w-3 text-black" strokeWidth={3} />
                   </div>
                 </div>
 
@@ -407,10 +378,7 @@ function CartToastNotification({
                   <div className="mt-2 flex items-center gap-2">
                     {toast.price && (
                       <span className="text-[13px] font-semibold text-[#f5d76e]">
-                        ₹
-                        {getNumericValue(
-                          toast.price,
-                        ).toLocaleString("en-IN")}
+                        ₹{getNumericValue(toast.price).toLocaleString("en-IN")}
                       </span>
                     )}
 
@@ -596,13 +564,7 @@ function CartToastNotification({
    PRODUCT RATING
 ========================================================= */
 
-function ProductRating({
-  rating,
-  reviews,
-}: {
-  rating?: number;
-  reviews?: number;
-}) {
+function ProductRating({ rating, reviews }: { rating?: number; reviews?: number }) {
   if (rating === undefined) return null;
 
   const safeRating = Math.max(0, Math.min(5, rating));
@@ -614,29 +576,18 @@ function ProductRating({
       <div className="flex items-center">
         {Array.from({ length: 5 }).map((_, index) => {
           const full = index < fullStars;
-          const half =
-            index === fullStars && hasHalfStar;
+          const half = index === fullStars && hasHalfStar;
 
           return (
-            <span
-              key={index}
-              className="relative block h-3.5 w-3.5 sm:h-4 sm:w-4"
-            >
+            <span key={index} className="relative block h-3.5 w-3.5 sm:h-4 sm:w-4">
               <Star
                 className="absolute inset-0 h-3.5 w-3.5 text-[#d4af37]/25 sm:h-4 sm:w-4"
                 fill="#18150c"
               />
 
               {(full || half) && (
-                <span
-                  className={`absolute inset-0 overflow-hidden ${
-                    half ? "w-1/2" : "w-full"
-                  }`}
-                >
-                  <Star
-                    className="h-3.5 w-3.5 text-[#f0c94b] sm:h-4 sm:w-4"
-                    fill="#f0c94b"
-                  />
+                <span className={`absolute inset-0 overflow-hidden ${half ? "w-1/2" : "w-full"}`}>
+                  <Star className="h-3.5 w-3.5 text-[#f0c94b] sm:h-4 sm:w-4" fill="#f0c94b" />
                 </span>
               )}
             </span>
@@ -675,10 +626,7 @@ function AttarPageProductCard({
   const [added, setAdded] = useState(false);
   const [liked, setLiked] = useState(false);
 
-  const productId =
-    product?.id ??
-    product?.name ??
-    product?.title;
+  const productId = product?.id ?? product?.name ?? product?.title;
 
   /* =======================================================
      OUT OF STOCK
@@ -686,57 +634,27 @@ function AttarPageProductCard({
 
   const isOutOfStock = (product?.stock ?? 0) <= 0;
 
-  const currentCartItem = cart.find(
-    (item) =>
-      String(item?.product?.id) ===
-      String(productId),
-  );
+  const currentCartItem = cart.find((item) => String(item?.product?.id) === String(productId));
 
-  const currentQuantity =
-    currentCartItem?.quantity ?? 0;
+  const currentQuantity = currentCartItem?.quantity ?? 0;
 
   const isInCart = currentQuantity > 0;
 
-  const name =
-    product?.name ??
-    product?.title ??
-    "Premium Attar";
+  const name = product?.name ?? product?.title ?? "Premium Attar";
 
-  const image =
-    product?.image ??
-    product?.images?.[0] ??
-    "/images/placeholder.webp";
+  const image = product?.image ?? product?.images?.[0] ?? "/images/placeholder.webp";
 
-  const price =
-    getProductPrice(product) || 300;
+  const price = getProductPrice(product) || 300;
 
-  const mrp =
-    getProductMrp(product, price);
+  const mrp = getProductMrp(product, price);
 
-  const discount =
-    getProductDiscount(
-      product,
-      price,
-      mrp,
-    );
+  const discount = getProductDiscount(product, price, mrp);
 
-  const rating =
-    getNumericValue(
-      product?.rating,
-      4.8,
-    );
+  const rating = getNumericValue(product?.rating, 4.8);
 
-  const reviews =
-    getNumericValue(
-      product?.reviews ??
-        product?.reviewCount,
-      1200,
-    );
+  const reviews = getNumericValue(product?.reviews ?? product?.reviewCount, 1200);
 
-  const notes =
-    String(
-      product?.notes ?? "",
-    ).trim();
+  const notes = String(product?.notes ?? "").trim();
 
   const noteParts = notes
     .split(/[•|,]/)
@@ -744,29 +662,14 @@ function AttarPageProductCard({
     .filter(Boolean);
 
   const featureNames =
-    noteParts.length > 0
-      ? noteParts.slice(0, 3)
-      : [
-          "Premium Quality",
-          "Long Lasting",
-          "Luxury",
-        ];
+    noteParts.length > 0 ? noteParts.slice(0, 3) : ["Premium Quality", "Long Lasting", "Luxury"];
 
-  const featureIcons = [
-    Flower2,
-    Leaf,
-    Sparkles,
-  ];
+  const featureIcons = [Flower2, Leaf, Sparkles];
 
   const badgeText =
     product?.badge ??
     product?.tag ??
-    [
-      "BEST SELLER",
-      "POPULAR CHOICE",
-      "LUXURY FRAGRANCE",
-      "ICONIC SCENT",
-    ][index % 4];
+    ["BEST SELLER", "POPULAR CHOICE", "LUXURY FRAGRANCE", "ICONIC SCENT"][index % 4];
 
   /* =======================================================
      ADD TO CART
@@ -913,14 +816,8 @@ function AttarPageProductCard({
         {/* Wishlist */}
         <button
           type="button"
-          aria-label={
-            liked
-              ? `Remove ${name} from wishlist`
-              : `Add ${name} to wishlist`
-          }
-          onClick={() =>
-            setLiked((value) => !value)
-          }
+          aria-label={liked ? `Remove ${name} from wishlist` : `Add ${name} to wishlist`}
+          onClick={() => setLiked((value) => !value)}
           className="
             absolute bottom-3 right-3 z-30
             flex h-9 w-9 items-center justify-center
@@ -936,9 +833,7 @@ function AttarPageProductCard({
         >
           <Heart
             className={`h-4 w-4 transition-all ${
-              liked
-                ? "fill-[#d4af37] text-[#d4af37]"
-                : "text-[#f5d76e]"
+              liked ? "fill-[#d4af37] text-[#d4af37]" : "text-[#f5d76e]"
             }`}
           />
         </button>
@@ -970,26 +865,17 @@ function AttarPageProductCard({
         </p>
 
         {/* Rating */}
-        <ProductRating
-          rating={rating}
-          reviews={reviews}
-        />
+        <ProductRating rating={rating} reviews={reviews} />
 
         {/* Features */}
         <div className="mt-3 grid grid-cols-3 gap-1.5 sm:mt-4 sm:gap-2">
-          {featureNames.map(
-            (feature, featureIndex) => {
-              const Icon =
-                featureIcons[
-                  featureIndex %
-                    featureIcons.length
-                ];
-
-              return (
-                <div
-                  key={`${feature}-${featureIndex}`}
-                  title={feature}
-                  className="
+          {featureNames.map((feature, featureIndex) => {
+            const Icon = featureIcons[featureIndex % featureIcons.length] ?? Flower2;
+            return (
+              <div
+                key={`${feature}-${featureIndex}`}
+                title={feature}
+                className="
                     flex min-w-0 items-center justify-center gap-1
                     rounded-full border border-[#d4af37]/20
                     bg-white/[0.025]
@@ -1002,16 +888,13 @@ function AttarPageProductCard({
                     hover:bg-[#d4af37]/[0.05]
                     sm:text-[8px]
                   "
-                >
-                  <Icon className="h-2.5 w-2.5 shrink-0 text-[#d4af37] sm:h-3 sm:w-3" />
+              >
+                <Icon className="h-2.5 w-2.5 shrink-0 text-[#d4af37] sm:h-3 sm:w-3" />
 
-                  <span className="truncate">
-                    {feature}
-                  </span>
-                </div>
-              );
-            },
-          )}
+                <span className="truncate">{feature}</span>
+              </div>
+            );
+          })}
         </div>
 
         {/* Price */}
@@ -1067,9 +950,7 @@ function AttarPageProductCard({
           {/* Trust */}
           <div className="mt-2.5 flex items-center gap-1.5 text-[7px] uppercase tracking-[0.08em] text-white/25 sm:text-[8px]">
             <ShieldCheck className="h-3 w-3 shrink-0 text-[#d4af37]/65" />
-            <span>
-              Premium Oriental Fragrance
-            </span>
+            <span>Premium Oriental Fragrance</span>
           </div>
 
           {/* Add to cart */}
@@ -1120,11 +1001,9 @@ function AttarPageProductCard({
               }
             `}
           >
-            {!isOutOfStock &&
-              !added &&
-              !isInCart && (
-                <span className="pointer-events-none absolute inset-y-0 -left-14 w-8 skew-x-[-20deg] bg-white/40 transition-all duration-700 group-hover/cart:left-[120%]" />
-              )}
+            {!isOutOfStock && !added && !isInCart && (
+              <span className="pointer-events-none absolute inset-y-0 -left-14 w-8 skew-x-[-20deg] bg-white/40 transition-all duration-700 group-hover/cart:left-[120%]" />
+            )}
 
             {isOutOfStock ? (
               <>
@@ -1172,49 +1051,34 @@ function AttarPageProductCard({
 function AttarSeries() {
   const { addToCart, cart } = useCart();
 
-  const [currentPage, setCurrentPage] =
-    useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const [activeCategory, setActiveCategory] =
-    useState("all");
+  const [activeCategory, setActiveCategory] = useState("all");
 
-  const [sortBy, setSortBy] =
-    useState("featured");
+  const [sortBy, setSortBy] = useState("featured");
 
-  const [sortOpen, setSortOpen] =
-    useState(false);
+  const [sortOpen, setSortOpen] = useState(false);
 
-  const sortRef =
-    useRef<HTMLDivElement | null>(null);
+  const sortRef = useRef<HTMLDivElement | null>(null);
 
-  const [toast, setToast] =
-    useState<CartToast | null>(null);
+  const [toast, setToast] = useState<CartToast | null>(null);
 
-  const toastTimer =
-    useRef<number | null>(null);
+  const toastTimer = useRef<number | null>(null);
 
   /* =======================================================
      ATTAR PRODUCTS
   ======================================================= */
 
   const attarProducts = useMemo(() => {
-    return (products as Product[]).filter(
-      (product) => {
-        const series = product?.series;
+    return (products as Product[]).filter((product) => {
+      const series = product?.series;
 
-        if (Array.isArray(series)) {
-          return series.some((item) =>
-            ATTAR_SERIES.includes(
-              normalizeSeries(item),
-            ),
-          );
-        }
+      if (Array.isArray(series)) {
+        return series.some((item) => ATTAR_SERIES.includes(normalizeSeries(item)));
+      }
 
-        return ATTAR_SERIES.includes(
-          normalizeSeries(series),
-        );
-      },
-    );
+      return ATTAR_SERIES.includes(normalizeSeries(series));
+    });
   }, []);
 
   /* =======================================================
@@ -1225,52 +1089,22 @@ function AttarSeries() {
     const result =
       activeCategory === "all"
         ? [...attarProducts]
-        : attarProducts.filter(
-            (product) =>
-              productHasSeries(
-                product,
-                activeCategory,
-              ),
-          );
+        : attarProducts.filter((product) => productHasSeries(product, activeCategory));
 
     switch (sortBy) {
       case "price-low":
-        return result.sort(
-          (a, b) =>
-            getProductPrice(a) -
-            getProductPrice(b),
-        );
+        return result.sort((a, b) => getProductPrice(a) - getProductPrice(b));
 
       case "price-high":
-        return result.sort(
-          (a, b) =>
-            getProductPrice(b) -
-            getProductPrice(a),
-        );
+        return result.sort((a, b) => getProductPrice(b) - getProductPrice(a));
 
       case "rating":
-        return result.sort(
-          (a, b) =>
-            getNumericValue(
-              b?.rating,
-              0,
-            ) -
-            getNumericValue(
-              a?.rating,
-              0,
-            ),
-        );
+        return result.sort((a, b) => getNumericValue(b?.rating, 0) - getNumericValue(a?.rating, 0));
 
       case "name":
         return result.sort((a, b) =>
-          String(
-            a?.name ?? a?.title ?? "",
-          ).localeCompare(
-            String(
-              b?.name ??
-                b?.title ??
-                "",
-            ),
+          String(a?.name ?? a?.title ?? "").localeCompare(
+            String(b?.name ?? b?.title ?? ""),
             undefined,
             {
               sensitivity: "base",
@@ -1281,52 +1115,30 @@ function AttarSeries() {
       default:
         return result;
     }
-  }, [
-    attarProducts,
-    activeCategory,
-    sortBy,
-  ]);
+  }, [attarProducts, activeCategory, sortBy]);
 
   /* =======================================================
      PAGINATION
   ======================================================= */
 
-  const totalPages = Math.max(
-    1,
-    Math.ceil(
-      filteredItems.length /
-        ITEMS_PER_PAGE,
-    ),
-  );
+  const totalPages = Math.max(1, Math.ceil(filteredItems.length / ITEMS_PER_PAGE));
 
   useEffect(() => {
     if (currentPage > totalPages) {
       setCurrentPage(totalPages);
     }
-  }, [
-    currentPage,
-    totalPages,
-  ]);
+  }, [currentPage, totalPages]);
 
   const paginatedItems = useMemo(() => {
-    const start =
-      (currentPage - 1) *
-      ITEMS_PER_PAGE;
+    const start = (currentPage - 1) * ITEMS_PER_PAGE;
 
-    return filteredItems.slice(
-      start,
-      start + ITEMS_PER_PAGE,
-    );
-  }, [
-    filteredItems,
-    currentPage,
-  ]);
+    return filteredItems.slice(start, start + ITEMS_PER_PAGE);
+  }, [filteredItems, currentPage]);
 
   useEffect(() => {
     if (currentPage > 1) {
       window.setTimeout(() => {
-        const productSection =
-          document.getElementById("attar-products");
+        const productSection = document.getElementById("attar-products");
 
         if (productSection) {
           productSection.scrollIntoView({
@@ -1342,57 +1154,34 @@ function AttarSeries() {
      ADD TO CART
   ======================================================= */
 
-  const handleAddToCart = (
-    product: Product,
-  ) => {
+  const handleAddToCart = (product: Product) => {
     try {
       /* OUT OF STOCK PROTECTION */
       if ((product?.stock ?? 0) <= 0) {
         return;
       }
 
-      const productId =
-        product?.id ??
-        product?.name ??
-        product?.title;
+      const productId = product?.id ?? product?.name ?? product?.title;
 
-      const existingItem =
-        cart.find(
-          (item) =>
-            String(
-              item?.product?.id,
-            ) === String(productId),
-        );
+      const existingItem = cart.find((item) => String(item?.product?.id) === String(productId));
 
-      const currentQuantity =
-        existingItem?.quantity ?? 0;
+      const currentQuantity = existingItem?.quantity ?? 0;
 
-      const nextQuantity =
-        currentQuantity + 1;
+      const nextQuantity = currentQuantity + 1;
 
       const productPrice = String(
-        product?.price ??
-          product?.salePrice ??
-          product?.sellingPrice ??
-          "",
+        product?.price ?? product?.salePrice ?? product?.sellingPrice ?? "",
       );
 
-      const productName =
-        product?.name ??
-        product?.title ??
-        "Premium Attar";
+      const productName = product?.name ?? product?.title ?? "Premium Attar";
 
-      const productImage =
-        product?.image ??
-        product?.images?.[0] ??
-        "";
+      const productImage = product?.image ?? product?.images?.[0] ?? "";
 
       addToCart({
         id: productId,
         name: productName,
         price: productPrice,
-        notes:
-          product?.notes ?? "",
+        notes: product?.notes ?? "",
         image: productImage,
       });
 
@@ -1404,20 +1193,14 @@ function AttarSeries() {
       });
 
       if (toastTimer.current) {
-        window.clearTimeout(
-          toastTimer.current,
-        );
+        window.clearTimeout(toastTimer.current);
       }
 
-      toastTimer.current =
-        window.setTimeout(() => {
-          setToast(null);
-        }, 4500);
+      toastTimer.current = window.setTimeout(() => {
+        setToast(null);
+      }, 4500);
     } catch (error) {
-      console.error(
-        "Add to cart failed:",
-        error,
-      );
+      console.error("Add to cart failed:", error);
     }
   };
 
@@ -1428,9 +1211,7 @@ function AttarSeries() {
   useEffect(() => {
     return () => {
       if (toastTimer.current) {
-        window.clearTimeout(
-          toastTimer.current,
-        );
+        window.clearTimeout(toastTimer.current);
       }
     };
   }, []);
@@ -1442,32 +1223,18 @@ function AttarSeries() {
   useEffect(() => {
     if (!sortOpen) return;
 
-    const handleOutsideClick = (
-      event: MouseEvent,
-    ) => {
-      const target =
-        event.target as Node;
+    const handleOutsideClick = (event: MouseEvent) => {
+      const target = event.target as Node;
 
-      if (
-        sortRef.current &&
-        !sortRef.current.contains(
-          target,
-        )
-      ) {
+      if (sortRef.current && !sortRef.current.contains(target)) {
         setSortOpen(false);
       }
     };
 
-    document.addEventListener(
-      "mousedown",
-      handleOutsideClick,
-    );
+    document.addEventListener("mousedown", handleOutsideClick);
 
     return () => {
-      document.removeEventListener(
-        "mousedown",
-        handleOutsideClick,
-      );
+      document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, [sortOpen]);
 
@@ -1475,9 +1242,7 @@ function AttarSeries() {
      CATEGORY
   ======================================================= */
 
-  const handleCategoryChange = (
-    category: string,
-  ) => {
+  const handleCategoryChange = (category: string) => {
     setActiveCategory(category);
     setCurrentPage(1);
     setSortOpen(false);
@@ -1485,8 +1250,7 @@ function AttarSeries() {
     // Category change should take the user directly to the
     // filtered Attar product cards instead of the hero section.
     window.setTimeout(() => {
-      const productSection =
-        document.getElementById("attar-products");
+      const productSection = document.getElementById("attar-products");
 
       if (productSection) {
         productSection.scrollIntoView({
@@ -1501,17 +1265,14 @@ function AttarSeries() {
      SORT
   ======================================================= */
 
-  const handleSortChange = (
-    value: string,
-  ) => {
+  const handleSortChange = (value: string) => {
     setSortBy(value);
     setCurrentPage(1);
     setSortOpen(false);
 
     // Keep sorting UX consistent: return to the product cards.
     window.setTimeout(() => {
-      const productSection =
-        document.getElementById("attar-products");
+      const productSection = document.getElementById("attar-products");
 
       if (productSection) {
         productSection.scrollIntoView({
@@ -1526,13 +1287,8 @@ function AttarSeries() {
      PAGE
   ======================================================= */
 
-  const handlePageChange = (
-    page: number,
-  ) => {
-    if (
-      page < 1 ||
-      page > totalPages
-    ) {
+  const handlePageChange = (page: number) => {
+    if (page < 1 || page > totalPages) {
       return;
     }
 
@@ -1550,12 +1306,7 @@ function AttarSeries() {
 
   return (
     <>
-      <CartToastNotification
-        toast={toast}
-        onClose={() =>
-          setToast(null)
-        }
-      />
+      <CartToastNotification toast={toast} onClose={() => setToast(null)} />
 
       <motion.main
         initial={{ opacity: 0 }}
@@ -1728,7 +1479,6 @@ function AttarSeries() {
                   group-hover:-translate-x-1
                 "
               />
-
               Back to Home
             </Link>
           </motion.div>
@@ -1746,12 +1496,7 @@ function AttarSeries() {
             }}
             transition={{
               duration: 1,
-              ease: [
-                0.22,
-                1,
-                0.36,
-                1,
-              ],
+              ease: [0.22, 1, 0.36, 1],
             }}
             className="
               group/hero
@@ -1800,8 +1545,7 @@ function AttarSeries() {
                 group-hover/hero:scale-[1.065]
               "
               style={{
-                backgroundImage:
-                  "url('/images/attar-hero.webp')",
+                backgroundImage: "url('/images/attar-hero.webp')",
               }}
             />
 
@@ -1982,9 +1726,7 @@ function AttarSeries() {
               >
                 <span>PURE ATTARS</span>
 
-                <span className="text-[#d4af37]">
-                  ◆
-                </span>
+                <span className="text-[#d4af37]">◆</span>
 
                 <span>MUMBAI ATELIER</span>
               </div>
@@ -2013,9 +1755,7 @@ function AttarSeries() {
               >
                 The Attar
                 <br />
-                <span className="text-white/[.94]">
-                  Collection
-                </span>
+                <span className="text-white/[.94]">Collection</span>
               </h1>
 
               {/* ORNAMENT */}
@@ -2103,10 +1843,7 @@ function AttarSeries() {
                 "
               >
                 More than fragrance.
-                <span className="text-white/45">
-                  {" "}
-                  An expression of you.
-                </span>
+                <span className="text-white/45"> An expression of you.</span>
               </p>
 
               {/* BENEFITS */}
@@ -2122,11 +1859,7 @@ function AttarSeries() {
                   gap-2
                 "
               >
-                {[
-                  "Concentrated Oils",
-                  "Alcohol Free",
-                  "Long Lasting",
-                ].map((item) => (
+                {["Concentrated Oils", "Alcohol Free", "Long Lasting"].map((item) => (
                   <span
                     key={item}
                     className="
@@ -2255,28 +1988,20 @@ function AttarSeries() {
                 lg:gap-2.5
               "
             >
-              {CATEGORY_FILTERS.map(
-                (category) => {
-                  const Icon =
-                    category.icon;
+              {CATEGORY_FILTERS.map((category) => {
+                const Icon = category.icon;
 
-                  const active =
-                    activeCategory ===
-                    category.value;
+                const active = activeCategory === category.value;
 
-                  return (
-                    <motion.button
-                      whileTap={{
-                        scale: 0.95,
-                      }}
-                      key={category.value}
-                      type="button"
-                      onClick={() =>
-                        handleCategoryChange(
-                          category.value,
-                        )
-                      }
-                      className={`
+                return (
+                  <motion.button
+                    whileTap={{
+                      scale: 0.95,
+                    }}
+                    key={category.value}
+                    type="button"
+                    onClick={() => handleCategoryChange(category.value)}
+                    className={`
                         inline-flex
                         h-10
                         shrink-0
@@ -2308,46 +2033,33 @@ function AttarSeries() {
                             : "border-white/[.08] bg-white/[.025] text-white/45 hover:border-[#d4af37]/40 hover:bg-[#d4af37]/[.05] hover:text-[#f5d76e]"
                         }
                       `}
-                    >
-                      <Icon
-                        className={`
+                  >
+                    <Icon
+                      className={`
                           h-3.5
                           w-3.5
 
                           sm:h-4
                           sm:w-4
 
-                          ${
-                            active
-                              ? "text-black"
-                              : "text-[#d4af37]"
-                          }
+                          ${active ? "text-black" : "text-[#d4af37]"}
                         `}
-                      />
+                    />
 
-                      {category.label}
-                    </motion.button>
-                  );
-                },
-              )}
+                    {category.label}
+                  </motion.button>
+                );
+              })}
 
               {/* SORT */}
 
-              <div
-                ref={sortRef}
-                className="relative shrink-0"
-              >
+              <div ref={sortRef} className="relative shrink-0">
                 <motion.button
                   whileTap={{
                     scale: 0.95,
                   }}
                   type="button"
-                  onClick={() =>
-                    setSortOpen(
-                      (value) =>
-                        !value,
-                    )
-                  }
+                  onClick={() => setSortOpen((value) => !value)}
                   aria-expanded={sortOpen}
                   aria-haspopup="menu"
                   className="
@@ -2396,9 +2108,7 @@ function AttarSeries() {
                       text-[#d4af37]
                     "
                   />
-
                   Sort
-
                   <ChevronDown
                     className={`
                       h-3.5
@@ -2408,11 +2118,7 @@ function AttarSeries() {
 
                       transition-transform
 
-                      ${
-                        sortOpen
-                          ? "rotate-180"
-                          : ""
-                      }
+                      ${sortOpen ? "rotate-180" : ""}
                     `}
                   />
                 </motion.button>
@@ -2507,25 +2213,16 @@ function AttarSeries() {
 
                       <div className="mb-1 h-px bg-white/[.06]" />
 
-                      {SORT_OPTIONS.map(
-                        (option) => {
-                          const active =
-                            sortBy ===
-                            option.value;
+                      {SORT_OPTIONS.map((option) => {
+                        const active = sortBy === option.value;
 
-                          return (
-                            <button
-                              key={
-                                option.value
-                              }
-                              type="button"
-                              role="menuitem"
-                              onClick={() =>
-                                handleSortChange(
-                                  option.value,
-                                )
-                              }
-                              className={`
+                        return (
+                          <button
+                            key={option.value}
+                            type="button"
+                            role="menuitem"
+                            onClick={() => handleSortChange(option.value)}
+                            className={`
                                 flex
                                 w-full
 
@@ -2552,10 +2249,10 @@ function AttarSeries() {
                                     : "text-white/45 hover:bg-white/[.04] hover:text-white"
                                 }
                               `}
-                            >
-                              <span className="flex items-center gap-2.5">
-                                <span
-                                  className={`
+                          >
+                            <span className="flex items-center gap-2.5">
+                              <span
+                                className={`
                                     flex
                                     h-6
                                     w-6
@@ -2573,54 +2270,33 @@ function AttarSeries() {
                                         : "border-white/[.06] bg-white/[.025]"
                                     }
                                   `}
-                                >
-                                  {option.value ===
-                                    "price-low" && (
-                                    <span className="text-[9px]">
-                                      ₹↓
-                                    </span>
-                                  )}
+                              >
+                                {option.value === "price-low" && (
+                                  <span className="text-[9px]">₹↓</span>
+                                )}
 
-                                  {option.value ===
-                                    "price-high" && (
-                                    <span className="text-[9px]">
-                                      ₹↑
-                                    </span>
-                                  )}
+                                {option.value === "price-high" && (
+                                  <span className="text-[9px]">₹↑</span>
+                                )}
 
-                                  {option.value ===
-                                    "rating" && (
-                                    <Star
-                                      className="h-3 w-3"
-                                      fill={
-                                        active
-                                          ? "currentColor"
-                                          : "none"
-                                      }
-                                    />
-                                  )}
+                                {option.value === "rating" && (
+                                  <Star
+                                    className="h-3 w-3"
+                                    fill={active ? "currentColor" : "none"}
+                                  />
+                                )}
 
-                                  {option.value ===
-                                    "name" && (
-                                    <span className="text-[8px]">
-                                      AZ
-                                    </span>
-                                  )}
+                                {option.value === "name" && <span className="text-[8px]">AZ</span>}
 
-                                  {option.value ===
-                                    "featured" && (
-                                    <Sparkles className="h-3 w-3" />
-                                  )}
-                                </span>
-
-                                {
-                                  option.label
-                                }
+                                {option.value === "featured" && <Sparkles className="h-3 w-3" />}
                               </span>
 
-                              {active && (
-                                <span
-                                  className="
+                              {option.label}
+                            </span>
+
+                            {active && (
+                              <span
+                                className="
                                     flex
                                     h-5
                                     w-5
@@ -2632,20 +2308,19 @@ function AttarSeries() {
 
                                     bg-[#d4af37]/15
                                   "
-                                >
-                                  <Check
-                                    className="
+                              >
+                                <Check
+                                  className="
                                       h-3
                                       w-3
                                       text-[#d4af37]
                                     "
-                                  />
-                                </span>
-                              )}
-                            </button>
-                          );
-                        },
-                      )}
+                                />
+                              </span>
+                            )}
+                          </button>
+                        );
+                      })}
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -2712,12 +2387,8 @@ function AttarSeries() {
                   sm:text-[9px]
                 "
               >
-                {filteredItems.length}{" "}
-                {filteredItems.length ===
-                1
-                  ? "fragrance"
-                  : "fragrances"}{" "}
-                in this collection
+                {filteredItems.length} {filteredItems.length === 1 ? "fragrance" : "fragrances"} in
+                this collection
               </p>
             </div>
 
@@ -2756,24 +2427,21 @@ function AttarSeries() {
 
           {/* PRODUCT GRID / CATEGORY DESTINATION */}
 
-          <div
-            id="attar-products"
-            className="scroll-mt-24"
-          >
+          <div id="attar-products" className="scroll-mt-24">
             {paginatedItems.length > 0 ? (
-            <>
-              <motion.div
-                initial="hidden"
-                animate="show"
-                variants={{
-                  hidden: {},
-                  show: {
-                    transition: {
-                      staggerChildren: 0.06,
+              <>
+                <motion.div
+                  initial="hidden"
+                  animate="show"
+                  variants={{
+                    hidden: {},
+                    show: {
+                      transition: {
+                        staggerChildren: 0.06,
+                      },
                     },
-                  },
-                }}
-                className="
+                  }}
+                  className="
                   mt-5
 
                   grid
@@ -2791,14 +2459,10 @@ function AttarSeries() {
 
                   xl:gap-6
                 "
-              >
-                {paginatedItems.map(
-                  (product) => (
+                >
+                  {paginatedItems.map((product) => (
                     <motion.div
-                      key={
-                        product.id ??
-                        product.name
-                      }
+                      key={product.id ?? product.name}
                       variants={{
                         hidden: {
                           opacity: 0,
@@ -2809,44 +2473,33 @@ function AttarSeries() {
                           y: 0,
                           transition: {
                             duration: 0.6,
-                            ease: [
-                              0.22,
-                              1,
-                              0.36,
-                              1,
-                            ],
+                            ease: [0.22, 1, 0.36, 1],
                           },
                         },
                       }}
                       className="flex min-w-0 w-full"
                     >
-                      <AttarPageProductCard
-                        product={product}
-                        onAddToCart={
-                          handleAddToCart
-                        }
-                      />
+                      <AttarPageProductCard product={product} onAddToCart={handleAddToCart} />
                     </motion.div>
-                  ),
-                )}
-              </motion.div>
+                  ))}
+                </motion.div>
 
-              {/* PAGINATION */}
+                {/* PAGINATION */}
 
-              {totalPages > 1 && (
-                <motion.div
-                  initial={{
-                    opacity: 0,
-                    y: 15,
-                  }}
-                  animate={{
-                    opacity: 1,
-                    y: 0,
-                  }}
-                  transition={{
-                    duration: 0.5,
-                  }}
-                  className="
+                {totalPages > 1 && (
+                  <motion.div
+                    initial={{
+                      opacity: 0,
+                      y: 15,
+                    }}
+                    animate={{
+                      opacity: 1,
+                      y: 0,
+                    }}
+                    transition={{
+                      duration: 0.5,
+                    }}
+                    className="
                     mx-auto
                     mt-12
 
@@ -2868,20 +2521,14 @@ function AttarSeries() {
 
                     backdrop-blur-xl
                   "
-                >
-                  {/* PREVIOUS */}
+                  >
+                    {/* PREVIOUS */}
 
-                  <button
-                    type="button"
-                    onClick={() =>
-                      handlePageChange(
-                        currentPage - 1,
-                      )
-                    }
-                    disabled={
-                      currentPage === 1
-                    }
-                    className="
+                    <button
+                      type="button"
+                      onClick={() => handlePageChange(currentPage - 1)}
+                      disabled={currentPage === 1}
+                      className="
                       inline-flex
                       h-9
                       min-w-9
@@ -2910,18 +2557,16 @@ function AttarSeries() {
                       sm:h-10
                       sm:min-w-10
                     "
-                  >
-                    <ChevronLeft className="h-4 w-4" />
+                    >
+                      <ChevronLeft className="h-4 w-4" />
 
-                    <span className="hidden sm:inline">
-                      Prev
-                    </span>
-                  </button>
+                      <span className="hidden sm:inline">Prev</span>
+                    </button>
 
-                  {/* PAGE */}
+                    {/* PAGE */}
 
-                  <div
-                    className="
+                    <div
+                      className="
                       flex
                       h-9
                       min-w-[76px]
@@ -2943,34 +2588,21 @@ function AttarSeries() {
 
                       sm:h-10
                     "
-                  >
-                    <strong className="text-[#d4af37]">
-                      {currentPage}
-                    </strong>
+                    >
+                      <strong className="text-[#d4af37]">{currentPage}</strong>
 
-                    <span className="mx-2 text-white/20">
-                      /
-                    </span>
+                      <span className="mx-2 text-white/20">/</span>
 
-                    <strong className="text-white/60">
-                      {totalPages}
-                    </strong>
-                  </div>
+                      <strong className="text-white/60">{totalPages}</strong>
+                    </div>
 
-                  {/* NEXT */}
+                    {/* NEXT */}
 
-                  <button
-                    type="button"
-                    onClick={() =>
-                      handlePageChange(
-                        currentPage + 1,
-                      )
-                    }
-                    disabled={
-                      currentPage ===
-                      totalPages
-                    }
-                    className="
+                    <button
+                      type="button"
+                      onClick={() => handlePageChange(currentPage + 1)}
+                      disabled={currentPage === totalPages}
+                      className="
                       inline-flex
                       h-9
                       min-w-9
@@ -2999,29 +2631,27 @@ function AttarSeries() {
                       sm:h-10
                       sm:min-w-10
                     "
-                  >
-                    <span className="hidden sm:inline">
-                      Next
-                    </span>
+                    >
+                      <span className="hidden sm:inline">Next</span>
 
-                    <ChevronRight className="h-4 w-4" />
-                  </button>
-                </motion.div>
-              )}
-            </>
-          ) : (
-            /* EMPTY */
+                      <ChevronRight className="h-4 w-4" />
+                    </button>
+                  </motion.div>
+                )}
+              </>
+            ) : (
+              /* EMPTY */
 
-            <motion.div
-              initial={{
-                opacity: 0,
-                y: 20,
-              }}
-              animate={{
-                opacity: 1,
-                y: 0,
-              }}
-              className="
+              <motion.div
+                initial={{
+                  opacity: 0,
+                  y: 20,
+                }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                className="
                 mt-8
 
                 rounded-[28px]
@@ -3036,9 +2666,9 @@ function AttarSeries() {
 
                 text-center
               "
-            >
-              <div
-                className="
+              >
+                <div
+                  className="
                   mx-auto
 
                   flex
@@ -3055,19 +2685,19 @@ function AttarSeries() {
 
                   bg-[#d4af37]/[.04]
                 "
-              >
-                <Sparkles
-                  className="
+                >
+                  <Sparkles
+                    className="
                     h-7
                     w-7
 
                     text-[#d4af37]/70
                   "
-                />
-              </div>
+                  />
+                </div>
 
-              <h2
-                className="
+                <h2
+                  className="
                   mt-6
 
                   font-display
@@ -3075,12 +2705,12 @@ function AttarSeries() {
 
                   text-[#f5d76e]
                 "
-              >
-                No Fragrances Found
-              </h2>
+                >
+                  No Fragrances Found
+                </h2>
 
-              <p
-                className="
+                <p
+                  className="
                   mx-auto
                   mt-3
 
@@ -3091,18 +2721,14 @@ function AttarSeries() {
 
                   text-white/40
                 "
-              >
-                No fragrances are currently listed in this Attar category.
-              </p>
+                >
+                  No fragrances are currently listed in this Attar category.
+                </p>
 
-              <button
-                type="button"
-                onClick={() =>
-                  handleCategoryChange(
-                    "all",
-                  )
-                }
-                className="
+                <button
+                  type="button"
+                  onClick={() => handleCategoryChange("all")}
+                  className="
                   mt-7
 
                   rounded-full
@@ -3125,10 +2751,10 @@ function AttarSeries() {
                   hover:bg-[#d4af37]
                   hover:text-black
                 "
-              >
-                Show All Attars
-              </button>
-            </motion.div>
+                >
+                  Show All Attars
+                </button>
+              </motion.div>
             )}
           </div>
 
@@ -3194,15 +2820,13 @@ function AttarSeries() {
                   title: "Customer Care",
                   text: "We're Always Here",
                 },
-              ].map(
-                (item, index) => {
-                  const Icon =
-                    item.icon;
+              ].map((item, index) => {
+                const Icon = item.icon;
 
-                  return (
-                    <div
-                      key={item.title}
-                      className={`
+                return (
+                  <div
+                    key={item.title}
+                    className={`
                         group
                         relative
 
@@ -3226,27 +2850,18 @@ function AttarSeries() {
                         lg:min-h-[175px]
 
                         ${
-                          index === 0 ||
-                          index === 1
+                          index === 0 || index === 1
                             ? "border-b border-[#d4af37]/10 lg:border-b-0"
                             : ""
                         }
 
-                        ${
-                          index % 2 === 1
-                            ? "border-l border-[#d4af37]/10"
-                            : ""
-                        }
+                        ${index % 2 === 1 ? "border-l border-[#d4af37]/10" : ""}
 
-                        ${
-                          index > 0
-                            ? "lg:border-l lg:border-[#d4af37]/10"
-                            : ""
-                        }
+                        ${index > 0 ? "lg:border-l lg:border-[#d4af37]/10" : ""}
                       `}
-                    >
-                      <div
-                        className="
+                  >
+                    <div
+                      className="
                           flex
                           h-12
                           w-12
@@ -3269,9 +2884,9 @@ function AttarSeries() {
                           group-hover:bg-[#d4af37]/[.07]
                           group-hover:shadow-[0_0_30px_rgba(212,175,55,.10)]
                         "
-                      >
-                        <Icon
-                          className="
+                    >
+                      <Icon
+                        className="
                             h-5
                             w-5
 
@@ -3280,12 +2895,12 @@ function AttarSeries() {
                             sm:h-6
                             sm:w-6
                           "
-                          strokeWidth={1.4}
-                        />
-                      </div>
+                        strokeWidth={1.4}
+                      />
+                    </div>
 
-                      <p
-                        className="
+                    <p
+                      className="
                           mt-4
 
                           text-[7px]
@@ -3297,12 +2912,12 @@ function AttarSeries() {
 
                           sm:text-[8px]
                         "
-                      >
-                        {item.title}
-                      </p>
+                    >
+                      {item.title}
+                    </p>
 
-                      <p
-                        className="
+                    <p
+                      className="
                           mt-1
 
                           text-[7px]
@@ -3311,13 +2926,12 @@ function AttarSeries() {
 
                           sm:text-[8px]
                         "
-                      >
-                        {item.text}
-                      </p>
-                    </div>
-                  );
-                },
-              )}
+                    >
+                      {item.text}
+                    </p>
+                  </div>
+                );
+              })}
             </div>
           </motion.section>
 
@@ -3413,12 +3027,9 @@ function AttarSeries() {
    ROUTE
 ========================================================= */
 
-export const Route = createFileRoute(
-  "/attar-series",
-)({
+export const Route = createFileRoute("/attar-series")({
   head: () => {
-    const title =
-      "Attar Collection — Al Misbah Fragrances";
+    const title = "Attar Collection — Al Misbah Fragrances";
 
     const description =
       "Explore the premium Attar Collection by Al Misbah Fragrances, featuring floral, sweet, woody, oud, fresh and traditional concentrated perfume oils.";

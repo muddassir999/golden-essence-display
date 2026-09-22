@@ -40,10 +40,7 @@ const attarLinks = [
     slug: "sweet",
     label: "🍯 Sweet Attars — Vanilla, Musk & Amber",
   },
-  {
-    slug: "spicy",
-    label: "🌶️ Spiced Attars — Saffron, Cinnamon & Spices",
-  },
+  
   {
     slug: "traditional",
     label: "🕌 Traditional Attars — Ruh Gulab, Mitti & Khus",
@@ -52,10 +49,7 @@ const attarLinks = [
     slug: "oud-oudh",
     label: "🖤 Oud / Oudh — Rich & Royal",
   },
-  {
-    slug: "musk",
-    label: "🤍 Musk Attars — Soft, Clean & Long-Lasting",
-  },
+  
 ];
 
 /* =========================================================

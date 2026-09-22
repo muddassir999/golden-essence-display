@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Droplets, Crown, Truck, ChevronLeft, ChevronRight } from "lucide-react";
 import { useRef } from "react";
-
 import hero1 from "@/assets/hero1 (1).png";
 import hero2 from "@/assets/hero1 (2).png";
 import catPerfume from "@/assets/cat-perfume.jpg";
@@ -24,7 +23,8 @@ import origin5 from "@/assets/o5.jpeg";
 import origin6 from "@/assets/o6.jpeg";
 import origin8 from "@/assets/o8.jpeg";
 import origin9 from "@/assets/o9.jpeg";
-
+import iu from "@/assets/iu.png";
+import iou from "@/assets/iuo.jpeg";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -73,14 +73,13 @@ const heroSlides = [
     series: "royal-oud",
   },
   {
-    image: origin3,
+    image: iou,
     arabic: "ورد الطائف",
     title: "The Beauty of",
     highlight: "Taif Rose",
-    description:
-      "A luxurious floral composition inspired by the legendary Taif rose, blended with pure botanical extracts and traditional Arabian craftsmanship.",
+    description: "A luxurious floral composition inspired by the legendary Taif rose",
     button: "Explore Rose",
-    series: "signature-edp",
+    series: "attar-series",
   },
 ];
 
@@ -88,6 +87,8 @@ function Index() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isMuted, setIsMuted] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const videoSectionRef = useRef<HTMLElement>(null);
+  const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
 
   const toggleMute = () => {
     if (!videoRef.current) return;
@@ -112,6 +113,26 @@ function Index() {
   };
 
   const currentHero = heroSlides[currentSlide] ?? heroSlides[0]!;
+
+  // Load the heavy video only when the video section is close to the viewport.
+  // This prevents the MP4 from competing with the hero, products and first-screen content.
+  useEffect(() => {
+    const section = videoSectionRef.current;
+    if (!section) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) {
+          setShouldLoadVideo(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "500px 0px" },
+    );
+
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <div className="page-transition w-full overflow-x-hidden">
@@ -145,6 +166,7 @@ function Index() {
             height={1088}
             fetchPriority={index === 0 ? "high" : "auto"}
             loading={index === 0 ? "eager" : "lazy"}
+            decoding="async"
             className={`
         absolute
         inset-0
@@ -452,48 +474,44 @@ function Index() {
         "
             >
               <Link
-                to="/series/$seriesName"
-                params={{
-                  seriesName: currentHero.series,
-                }}
+                to={currentHero.series === "attar-series" ? "/attar-series" : "/series/$seriesName"}
+                params={
+                  currentHero.series === "attar-series"
+                    ? undefined
+                    : {
+                        seriesName: currentHero.series,
+                      }
+                }
                 className="
-            inline-flex
-            min-h-[34px]
-            items-center
-            justify-center
-            rounded-sm
-            bg-gilded
-
-            px-3
-            py-1.5
-            whitespace-nowrap
-
-            text-[8.5px]
-            font-semibold
-            uppercase
-            tracking-[0.1em]
-            text-primary-foreground
-
-            transition-all
-            duration-300
-
-            hover:scale-[1.03]
-            hover:shadow-[0_8px_25px_rgba(212,175,55,0.30)]
-
-            sm:min-h-[40px]
-            sm:px-6
-            sm:text-[10px]
-
-            md:min-h-[42px]
-            md:px-7
-
-            lg:min-h-[44px]
-            lg:px-8
-
-            xl:min-h-[46px]
-            xl:px-9
-            xl:text-[11px]
-          "
+    inline-flex
+    min-h-[34px]
+    items-center
+    justify-center
+    rounded-sm
+    bg-gilded
+    px-3
+    py-1.5
+    whitespace-nowrap
+    text-[8.5px]
+    font-semibold
+    uppercase
+    tracking-[0.1em]
+    text-primary-foreground
+    transition-all
+    duration-300
+    hover:scale-[1.03]
+    hover:shadow-[0_8px_25px_rgba(212,175,55,0.30)]
+    sm:min-h-[40px]
+    sm:px-6
+    sm:text-[10px]
+    md:min-h-[42px]
+    md:px-7
+    lg:min-h-[44px]
+    lg:px-8
+    xl:min-h-[46px]
+    xl:px-9
+    xl:text-[11px]
+  "
               >
                 {currentHero.button}
               </Link>
@@ -920,6 +938,7 @@ function Index() {
                       src={c.img}
                       alt={c.label}
                       loading="lazy"
+                      decoding="async"
                       className="
                   h-full
                   w-full
@@ -1039,36 +1058,176 @@ function Index() {
       {/* =========================================================
           BEST SELLERS
       ========================================================= */}
-
-      <section
-        className="
+<section
+  className="
     relative
     z-0
     isolate
     w-full
     bg-background
     py-14
-
     sm:py-16
     lg:py-20
     xl:py-24
   "
-      >
-        <div
-          className="
+>
+  <div
+    className="
       mx-auto
       w-full
-      max-w-[1440px]
-      px-5
-
-      sm:px-8
-      md:px-10
-      lg:px-12
-      xl:px-16
-      2xl:px-20
+      max-w-[1600px]
+      px-4
+      sm:px-6
+      md:px-8
+      lg:px-10
+      xl:px-12
+      2xl:px-16
     "
-        >
+  >
+    {/* =========================================================
+        HEADER
+    ========================================================= */}
+
+    <motion.div
+      initial={{
+        opacity: 0,
+        y: 25,
+      }}
+      whileInView={{
+        opacity: 1,
+        y: 0,
+      }}
+      viewport={{
+        once: true,
+        amount: 0.2,
+      }}
+      transition={{
+        duration: 0.7,
+      }}
+      className="
+        mx-auto
+        max-w-3xl
+        text-center
+      "
+    >
+      <p
+        className="
+          font-['Amiri']
+          text-xl
+          text-gilded
+          sm:text-2xl
+          lg:text-[26px]
+        "
+      >
+        الأكثر مبيعًا
+      </p>
+
+      <h2
+        className="
+          mt-1
+          font-display
+          text-[clamp(2rem,4vw,3.5rem)]
+          text-foreground
+        "
+      >
+        Best Sellers
+      </h2>
+
+      <div
+        className="
+          rule-gold
+          mx-auto
+          mt-4
+          h-px
+          w-20
+          sm:w-24
+          lg:w-28
+        "
+      />
+    </motion.div>
+
+    {/* =========================================================
+        MOBILE PRODUCTS
+    ========================================================= */}
+
+    <div
+      className="
+        mt-9
+        -mx-1
+        w-[calc(100%+8px)]
+        overflow-x-auto
+        overflow-y-hidden
+        px-1
+        pt-5
+        pb-8
+        snap-x
+        snap-mandatory
+        overscroll-x-contain
+        scrollbar-hide
+        sm:hidden
+      "
+      style={{
+        WebkitOverflowScrolling: "touch",
+        scrollBehavior: "smooth",
+        scrollSnapType: "x mandatory",
+      }}
+    >
+      <div
+        className="
+          flex
+          w-max
+          items-stretch
+          gap-4
+          pr-5
+        "
+      >
+        {bestSellers.map((product) => (
+          <div
+            key={product.id}
+            className="
+              relative
+              z-10
+              w-[82vw]
+              max-w-[82vw]
+              shrink-0
+              snap-start
+            "
+          >
+            <ProductCard
+              product={product}
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+
+    {/* =========================================================
+        DESKTOP PRODUCTS
+    ========================================================= */}
+
+    <div
+      className="
+        relative
+        z-0
+        mt-12
+
+        hidden
+
+        items-start
+        gap-6
+
+        sm:grid
+        sm:grid-cols-2
+
+        lg:grid-cols-4
+
+        xl:gap-8
+      "
+    >
+      {bestSellers.map(
+        (product, index) => (
           <motion.div
+            key={product.id}
             initial={{
               opacity: 0,
               y: 25,
@@ -1079,171 +1238,39 @@ function Index() {
             }}
             viewport={{
               once: true,
-              amount: 0.2,
+              amount: 0.15,
             }}
             transition={{
-              duration: 0.7,
+              duration: 0.6,
+              delay: index * 0.08,
             }}
-            className="mx-auto max-w-3xl text-center"
-          >
-            <p
-              className="
-          font-['Amiri']
-          text-xl
-          text-gilded
-
-          sm:text-2xl
-          lg:text-[26px]
-        "
-            >
-              الأكثر مبيعًا
-            </p>
-
-            <h2
-              className="
-          mt-1
-          font-display
-          text-[clamp(2rem,4vw,3.5rem)]
-          text-foreground
-        "
-            >
-              Best Sellers
-            </h2>
-
-            <div
-              className="
-          rule-gold
-          mx-auto
-          mt-4
-          h-px
-          w-20
-
-          sm:w-24
-          lg:w-28
-        "
-            />
-          </motion.div>
-
-          {/* ================= MOBILE ================= */}
-
-          <div
             className="
-        mt-9
-        -mx-1
-        w-[calc(100%+8px)]
-
-        overflow-x-auto
-        overflow-y-hidden
-
-        px-1
-        pt-5
-        pb-8
-
-        snap-x
-        snap-mandatory
-
-        overscroll-x-contain
-        scrollbar-hide
-
-        sm:hidden
-      "
-            style={{
-              WebkitOverflowScrolling: "touch",
-              scrollBehavior: "smooth",
-              scrollSnapType: "x mandatory",
-            }}
-          >
-            <div
-              className="
-          flex
-          w-max
-          items-stretch
-          gap-4
-          pr-5
-        "
-            >
-              {bestSellers.map((product) => (
-                <div
-                  key={product.id}
-                  className="
               relative
               z-10
-              w-[82vw]
-              max-w-[82vw]
-              shrink-0
-              snap-start
+
+              mx-auto
+
+              min-w-0
+              w-full
+
+              lg:max-w-[350px]
+              xl:max-w-[370px]
+              2xl:max-w-[390px]
             "
-                >
-                  <ProductCard product={product} />
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* ================= DESKTOP ================= */}
-
-          <div
-            className="
-        relative
-        z-0
-        mt-10
-        hidden
-        gap-5
-
-        sm:grid
-        sm:grid-cols-2
-
-        lg:grid-cols-4
-        lg:gap-6
-
-        xl:gap-7
-      "
           >
-            {bestSellers.map((product, index) => (
-              <motion.div
-                key={product.id}
-                initial={{
-                  opacity: 0,
-                  y: 25,
-                }}
-                whileInView={{
-                  opacity: 1,
-                  y: 0,
-                }}
-                viewport={{
-                  once: true,
-                  amount: 0.15,
-                }}
-                transition={{
-                  duration: 0.6,
-                  delay: index * 0.08,
-                }}
-                className="
-            relative
-            z-10
-            min-w-0
-
-            transition-all
-            duration-300
-            ease-out
-
-            hover:z-20
-            hover:-translate-y-2
-
-            hover:shadow-[0_15px_45px_rgba(212,175,55,0.18)]
-          "
-              >
-                <ProductCard product={product} />
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
+            <ProductCard
+              product={product}
+            />
+          </motion.div>
+        ),
+      )}
+    </div>
+  </div>
+</section>
       {/* =========================================================
           VIDEO ADVERTISEMENT
       ========================================================= */}
-      <section className="relative w-full overflow-hidden bg-[#1a1a1a] py-6">
+      <section ref={videoSectionRef} className="relative w-full overflow-hidden bg-[#1a1a1a] py-6">
         <motion.div
           initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -1290,9 +1317,9 @@ function Index() {
             loop
             muted
             playsInline
-            preload="auto"
+            preload="none"
           >
-            <source src={vfx} type="video/mp4" />
+            {shouldLoadVideo && <source src={vfx} type="video/mp4" />}
           </video>
 
           {/* SOUND ON / OFF BUTTON */}

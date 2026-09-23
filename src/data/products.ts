@@ -426,7 +426,7 @@ export const products: Product[] = [
     reviews: 241,
     image: poud,
     series: "oud-oudh",
-    stock: 0,
+    stock: 10,
   },
 
   {
@@ -441,7 +441,7 @@ export const products: Product[] = [
     reviews: 772,
     image: whiteoud,
     series: "oud-oudh",
-    stock: 0,
+    stock: 10,
   },
 
   /* =========================================================

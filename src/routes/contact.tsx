@@ -614,8 +614,8 @@ function Contact() {
 
                 <div className="group/field mt-5 sm:mt-6">
                   <label
-  htmlFor="message"
-  className="
+                    htmlFor="message"
+                    className="
     mb-2.5
     flex
     items-center
@@ -631,10 +631,10 @@ function Contact() {
     sm:text-[10px]
     sm:tracking-[0.25em]
   "
->
-  <span className="h-px w-4 shrink-0 bg-[#d4af37]/70" />
-  <span className="text-white">Your Message</span>
-</label>
+                  >
+                    <span className="h-px w-4 shrink-0 bg-[#d4af37]/70" />
+                    <span className="text-white">Your Message</span>
+                  </label>
 
                   <textarea
                     id="message"

@@ -342,7 +342,23 @@ function Contact() {
             MAIN CONTENT
         ======================================================= */}
 
-        <div className="mx-auto grid w-full max-w-6xl items-start gap-6 lg:grid-cols-[minmax(0,1.45fr)_minmax(290px,0.65fr)] lg:gap-7 xl:gap-9">
+    <div
+  className="
+    mx-auto
+    grid
+    w-full
+    max-w-6xl
+    items-start
+    gap-6
+
+    lg:-translate-y-14
+    lg:grid-cols-[minmax(0,1.45fr)_minmax(290px,0.65fr)]
+    lg:gap-7
+
+    xl:-translate-y-16
+    xl:gap-9
+  "
+>
           {/* =====================================================
               FORM
           ===================================================== */}

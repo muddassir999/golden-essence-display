@@ -256,16 +256,27 @@ function SeriesProductCard({
   const isInCart = currentQuantity > 0;
 
   const badgeText = product.badge ?? defaultBadges[index % defaultBadges.length];
+  const notes = String(product?.notes ?? "").trim();
 
-  const featureIcons = [Flower2, Leaf, Clock3];
-
-  const noteParts = (product.notes ?? "")
-    .split(/[•|,]/)
+  const noteParts = notes
+    .split(/[•·|,]/)
     .map((item) => item.trim())
     .filter(Boolean);
 
   const featureNames =
     noteParts.length > 0 ? noteParts.slice(0, 3) : ["Premium Quality", "Long Lasting", "Luxury"];
+
+  const featureIcons = [Flower2, Leaf, Sparkles];
+
+  // const featureIcons = [Flower2, Leaf, Clock3];
+
+  // const noteParts = (product.notes ?? "")
+  //   .split(/[•|,]/)
+  //   .map((item) => item.trim())
+  //   .filter(Boolean);
+
+  // const featureNames =
+  //   noteParts.length > 0 ? noteParts.slice(0, 3) : ["Premium Quality", "Long Lasting", "Luxury"];
 
   /* ================================================================
      ADD TO CART
@@ -546,36 +557,87 @@ function SeriesProductCard({
         />
 
         {/* Features */}
+          <div
+  className="
+    -ml-1
+    mt-3
+    flex
+    w-full
+    min-w-0
+    items-center
+    justify-start
+    gap-1
+    overflow-hidden
 
-        <div className="mt-3 grid grid-cols-3 gap-1.5 sm:mt-4 sm:gap-2">
-          {featureNames.map((feature, featureIndex) => {
-            const Icon = featureIcons[featureIndex % featureIcons.length] ?? Flower2;
+    sm:-ml-2
+    sm:mt-4
+    sm:gap-2
+  "
+>
+  {featureNames.map((feature, featureIndex) => {
+    const Icon =
+      featureIcons[featureIndex % featureIcons.length] ?? Flower2;
 
-            return (
-              <div
-                key={`${feature}-${featureIndex}`}
-                title={feature}
-                className="
-                  flex min-w-0 items-center justify-center gap-1
-                  rounded-full border border-[#d4af37]/20
-                  bg-white/[0.025]
-                  px-1.5 py-2
-                  text-center
-                  text-[6.5px] font-semibold uppercase
-                  tracking-[0.02em] text-white/55
-                  transition-all
-                  hover:border-[#d4af37]/50
-                  hover:bg-[#d4af37]/[0.05]
-                  sm:text-[8px]
-                "
-              >
-                <Icon className="h-2.5 w-2.5 shrink-0 text-[#d4af37] sm:h-3 sm:w-3" />
+    return (
+      <div
+        key={`${feature}-${featureIndex}`}
+        title={feature}
+        className="
+          flex
+          shrink
+          min-w-0
+          items-center
+          justify-center
+          gap-0.5
+          rounded-full
+          border
+          border-[#d4af37]/20
+          bg-white/[0.035]
+          px-1.5
+          py-1.5
+          transition-all
+          duration-300
+          hover:border-[#d4af37]/50
+          hover:bg-[#d4af37]/[0.06]
 
-                <span className="truncate">{feature}</span>
-              </div>
-            );
-          })}
-        </div>
+          sm:gap-1
+          sm:px-2.5
+          sm:py-2
+        "
+      >
+        <Icon
+          className="
+            h-2.5
+            w-2.5
+            shrink-0
+            text-[#d4af37]
+
+            sm:h-3
+            sm:w-3
+          "
+        />
+
+        <span
+          className="
+            whitespace-nowrap
+            text-[7.5px]
+            font-semibold
+            leading-none
+            tracking-normal
+            text-white/75
+
+            sm:text-[9px]
+            sm:tracking-[0.01em]
+          "
+        >
+          {feature}
+        </span>
+      </div>
+    );
+  })}
+</div>
+ 
+
 
         {/* Price */}
 
@@ -1064,44 +1126,52 @@ function SeriesPage() {
           <div className="relative mb-8 sm:mb-10 lg:mb-12">
             {/* Back */}
 
-            <motion.div
-              initial={{ opacity: 0, x: -15 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.55 }}
-              className="z-50 flex justify-start pointer-events-auto lg:absolute lg:left-0 lg:top-0"
-            >
-              <button
-                type="button"
-                onClick={() => {
-                  navigate({ to: "/" });
+          <motion.div
+  initial={{ opacity: 0, x: -15 }}
+  animate={{ opacity: 1, x: 0 }}
+  transition={{ duration: 0.55 }}
+  className="z-50 flex justify-start pointer-events-auto lg:absolute lg:left-0 lg:top-0"
+>
+  <button
+    type="button"
+    onClick={() => {
+      navigate({ to: "/" });
 
-                  window.scrollTo({
-                    top: 0,
-                    behavior: "smooth",
-                  });
-                }}
-                className="
-                  group inline-flex items-center gap-2
-                  rounded-full border border-white/10
-                  bg-white/[0.035]
-                  px-3.5 py-2.5
-                  text-[7px] font-semibold uppercase
-                  tracking-[0.2em] text-zinc-300
-                  backdrop-blur-md
-                  transition-all duration-300
-                  hover:border-[#d4af37]/40
-                  hover:bg-[#d4af37]/5
-                  hover:text-[#f3e5ab]
-                  active:scale-[0.97]
-                  sm:px-5 sm:text-[9px]
-                  pointer-events-auto
-                "
-              >
-                <ArrowLeft className="h-3.5 w-3.5 transition-transform group-hover:-translate-x-1" />
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }}
+    className="
+      group inline-flex items-center gap-2
+      rounded-full border border-white
+      bg-white
+      px-3.5 py-2.5
+      text-[7px] font-semibold uppercase
+      tracking-[0.2em] text-black
+      backdrop-blur-md
+      transition-all duration-300
+      hover:border-white
+      hover:bg-white
+      hover:text-black
+      active:scale-[0.97]
+      sm:px-5 sm:text-[9px]
+      pointer-events-auto
+    "
+  >
+    <ArrowLeft
+      className="
+        h-3.5
+        w-3.5
+        text-black
+        transition-transform
+        group-hover:-translate-x-1
+      "
+    />
 
-                <span>Back to Home</span>
-              </button>
-            </motion.div>
+    <span>Back to Home</span>
+  </button>
+</motion.div>
 
             {/* Header */}
 

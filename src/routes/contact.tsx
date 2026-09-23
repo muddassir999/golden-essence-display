@@ -134,7 +134,19 @@ function Contact() {
             delay: 0.1,
             ease,
           }}
-          className="relative z-50 mb-3 pt-7 sm:mb-1 sm:pt-7 lg:pt-8"
+          className="
+    relative
+    z-50
+    mb-3
+    -mt-2
+    pt-4
+
+    sm:mb-1
+    sm:mt-0
+    sm:pt-7
+
+    lg:pt-8
+  "
         >
           <Link
             to="/"
@@ -145,46 +157,44 @@ function Contact() {
               });
             }}
             className="
-              group
-              inline-flex
-              items-center
-              gap-2
-              rounded-full
-              border
-              border-white/[0.12]
-              bg-[#0b0b0b]/80
-              px-3
-              py-2
-              text-[8px]
-              font-semibold
-              uppercase
-              tracking-[0.2em]
-              text-zinc-400
-              shadow-[0_8px_30px_rgba(0,0,0,0.4)]
-              backdrop-blur-xl
-              transition-all
-              duration-300
-
-              hover:border-[#d4af37]/50
-              hover:bg-[#d4af37]/[0.07]
-              hover:text-[#f3e5ab]
-
-              sm:px-4
-              sm:py-2.5
-              sm:text-[9px]
-            "
+      group
+      inline-flex
+      items-center
+      gap-2
+      rounded-full
+      border
+      border-white
+      bg-white
+      px-3.5
+      py-2.5
+      text-[7px]
+      font-semibold
+      uppercase
+      tracking-[0.2em]
+      text-black
+      shadow-[0_8px_30px_rgba(0,0,0,0.4)]
+      backdrop-blur-xl
+      transition-all
+      duration-300
+      hover:border-white
+      hover:bg-white
+      hover:text-black
+      active:scale-[0.97]
+      sm:px-5
+      sm:text-[9px]
+    "
           >
             <ArrowLeft
               className="
-                h-3.5
-                w-3.5
-                transition-transform
-                duration-300
-                group-hover:-translate-x-1
-                group-hover:text-[#d4af37]
-                sm:h-4
-                sm:w-4
-              "
+        h-3.5
+        w-3.5
+        text-black
+        transition-transform
+        duration-300
+        group-hover:-translate-x-1
+        sm:h-3.5
+        sm:w-3.5
+      "
             />
 
             <span>Back to Home</span>
@@ -196,7 +206,7 @@ function Contact() {
         ======================================================= */}
 
         <header
-  className="
+          className="
     relative
     mx-auto
     max-w-5xl
@@ -216,7 +226,7 @@ function Contact() {
 
     xl:-translate-y-20
   "
->
+        >
           {/* Decorative rings */}
 
           <div className="pointer-events-none absolute left-1/2 top-1/2 h-[210px] w-[210px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#d4af37]/[0.045] sm:h-[330px] sm:w-[330px] lg:h-[430px] lg:w-[430px]" />
@@ -487,25 +497,24 @@ function Contact() {
                   <label
                     htmlFor="name"
                     className="
-                      mb-2.5
-                      flex
-                      items-center
-                      gap-2
-                      text-[9px]
-                      font-semibold
-                      uppercase
-                      tracking-[0.22em]
-                      text-zinc-400
-                      transition-colors
-
-                      group-focus-within/field:text-[#d4af37]
-
-                      sm:text-[10px]
-                      sm:tracking-[0.25em]
-                    "
+    mb-2.5
+    flex
+    items-center
+    gap-2
+    text-[9px]
+    font-semibold
+    uppercase
+    tracking-[0.22em]
+    text-white
+    opacity-100
+    transition-colors
+    group-focus-within/field:text-[#d4af37]
+    sm:text-[10px]
+    sm:tracking-[0.25em]
+  "
                   >
-                    <span className="h-px w-4 bg-[#d4af37]/40" />
-                    Your Name
+                    <span className="h-px w-4 shrink-0 bg-[#d4af37]/70" />
+                    <span className="text-white">Your Name</span>
                   </label>
 
                   <input
@@ -547,25 +556,24 @@ function Contact() {
                   <label
                     htmlFor="email"
                     className="
-                      mb-2.5
-                      flex
-                      items-center
-                      gap-2
-                      text-[9px]
-                      font-semibold
-                      uppercase
-                      tracking-[0.22em]
-                      text-zinc-400
-                      transition-colors
-
-                      group-focus-within/field:text-[#d4af37]
-
-                      sm:text-[10px]
-                      sm:tracking-[0.25em]
-                    "
+    mb-2.5
+    flex
+    items-center
+    gap-2
+    text-[9px]
+    font-semibold
+    uppercase
+    tracking-[0.22em]
+    text-white
+    opacity-100
+    transition-colors
+    group-focus-within/field:text-[#d4af37]
+    sm:text-[10px]
+    sm:tracking-[0.25em]
+  "
                   >
-                    <span className="h-px w-4 bg-[#d4af37]/40" />
-                    Email Address
+                    <span className="h-px w-4 shrink-0 bg-[#d4af37]/70" />
+                    <span className="text-white">Email Address</span>
                   </label>
 
                   <input
@@ -606,28 +614,27 @@ function Contact() {
 
                 <div className="group/field mt-5 sm:mt-6">
                   <label
-                    htmlFor="message"
-                    className="
-                      mb-2.5
-                      flex
-                      items-center
-                      gap-2
-                      text-[9px]
-                      font-semibold
-                      uppercase
-                      tracking-[0.22em]
-                      text-zinc-400
-                      transition-colors
-
-                      group-focus-within/field:text-[#d4af37]
-
-                      sm:text-[10px]
-                      sm:tracking-[0.25em]
-                    "
-                  >
-                    <span className="h-px w-4 bg-[#d4af37]/40" />
-                    Your Message
-                  </label>
+  htmlFor="message"
+  className="
+    mb-2.5
+    flex
+    items-center
+    gap-2
+    text-[9px]
+    font-semibold
+    uppercase
+    tracking-[0.22em]
+    text-white
+    opacity-100
+    transition-colors
+    group-focus-within/field:text-[#d4af37]
+    sm:text-[10px]
+    sm:tracking-[0.25em]
+  "
+>
+  <span className="h-px w-4 shrink-0 bg-[#d4af37]/70" />
+  <span className="text-white">Your Message</span>
+</label>
 
                   <textarea
                     id="message"
@@ -876,17 +883,17 @@ function Contact() {
               }}
               className="flex items-center justify-center gap-3 py-2 sm:py-3"
             >
-             <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#d4af37]/35 to-[#d4af37]/60" />
+              <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#d4af37]/35 to-[#d4af37]/60" />
 
-<div className="shrink-0 text-center">
-  <p className="font-display text-xl text-[#d4af37]">المصباح</p>
+              <div className="shrink-0 text-center">
+                <p className="font-display text-xl text-[#d4af37]">المصباح</p>
 
-  <p className="mt-1 text-[7px] uppercase tracking-[0.3em] text-zinc-300 sm:text-[8px] sm:tracking-[0.35em]">
-    The Essence of Royalty
-  </p>
-</div>
+                <p className="mt-1 text-[7px] uppercase tracking-[0.3em] text-zinc-300 sm:text-[8px] sm:tracking-[0.35em]">
+                  The Essence of Royalty
+                </p>
+              </div>
 
-<div className="h-px flex-1 bg-gradient-to-l from-transparent via-[#d4af37]/35 to-[#d4af37]/60" />
+              <div className="h-px flex-1 bg-gradient-to-l from-transparent via-[#d4af37]/35 to-[#d4af37]/60" />
             </motion.div>
           </aside>
         </div>
@@ -895,23 +902,23 @@ function Contact() {
             FOOTER
         ======================================================= */}
 
-       <motion.div
-  initial={{
-    opacity: 0,
-  }}
-  animate={{
-    opacity: 1,
-  }}
-  transition={{
-    delay: 1,
-    duration: 0.8,
-  }}
-  className="mx-auto mt-10 max-w-6xl border-t border-white/[0.20] py-6 text-center sm:mt-14 sm:py-7"
->
-  <p className="text-[7px] uppercase tracking-[0.3em] text-zinc-300 sm:text-[9px] sm:tracking-[0.35em]">
-    Al Misbah Fragrances · Mumbai Atelier · Crafted With Intention
-  </p>
-</motion.div>
+        <motion.div
+          initial={{
+            opacity: 0,
+          }}
+          animate={{
+            opacity: 1,
+          }}
+          transition={{
+            delay: 1,
+            duration: 0.8,
+          }}
+          className="mx-auto mt-10 max-w-6xl border-t border-white/[0.20] py-6 text-center sm:mt-14 sm:py-7"
+        >
+          <p className="text-[7px] uppercase tracking-[0.3em] text-zinc-300 sm:text-[9px] sm:tracking-[0.35em]">
+            Al Misbah Fragrances · Mumbai Atelier · Crafted With Intention
+          </p>
+        </motion.div>
       </div>
     </main>
   );

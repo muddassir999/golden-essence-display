@@ -1474,578 +1474,530 @@ function PerfumeSeries() {
             BACK BUTTON
         ================================================= */}
 
-        <motion.div
-          initial={{
-            opacity: 0,
-            x: -15,
-          }}
-          animate={{
-            opacity: 1,
-            x: 0,
-          }}
-          transition={{
-            duration: 0.6,
-          }}
-          className="
-            mb-5
+       <motion.div
+  initial={{
+    opacity: 0,
+    x: -15,
+  }}
+  animate={{
+    opacity: 1,
+    x: 0,
+  }}
+  transition={{
+    duration: 0.6,
+  }}
+  className="
+    mb-5
+    sm:mb-7
+    lg:mb-9
+  "
+>
+  <Link
+    to="/"
+    className="
+      group
 
-            sm:mb-7
+      inline-flex
+      items-center
+      gap-2
 
-            lg:mb-9
-          "
-        >
-          <Link
-            to="/"
-            className="
-              group
+      rounded-full
 
-              inline-flex
-              items-center
-              gap-2
+      border
+      border-white
 
-              rounded-full
+      bg-white
 
-              border
-              border-white/10
+      px-3.5
+      py-2.5
 
-              bg-white/[0.035]
+      text-[7px]
+      font-semibold
+      uppercase
+      tracking-[0.2em]
 
-              px-3.5
-              py-2.5
+      text-black
 
-              text-[7px]
-              font-semibold
-              uppercase
-              tracking-[0.2em]
+      backdrop-blur-md
 
-              text-zinc-300
+      transition-all
+      duration-300
 
-              backdrop-blur-md
+      hover:border-white
+      hover:bg-white
+      hover:text-black
 
-              transition-all
-              duration-300
+      active:scale-[0.97]
 
-              hover:border-[#d4af37]/40
-              hover:bg-[#d4af37]/5
-              hover:text-[#f3e5ab]
+      sm:px-5
+      sm:text-[9px]
+    "
+  >
+    <ArrowLeft
+      className="
+        h-3.5
+        w-3.5
+        text-black
 
-              active:scale-[0.97]
+        transition-transform
+        duration-300
 
-              sm:px-5
-              sm:text-[9px]
-            "
-          >
-            <ArrowLeft
-              className="
-                h-3.5
-                w-3.5
+        group-hover:-translate-x-1
+      "
+    />
 
-                transition-transform
-                duration-300
-
-                group-hover:-translate-x-1
-              "
-            />
-            Back to Home
-          </Link>
-        </motion.div>
+    Back to Home
+  </Link>
+</motion.div>
 
         {/* =================================================
             HERO
         ================================================= */}
 
-        <motion.section
-          initial={{
-            opacity: 0,
-            y: 25,
-          }}
-          animate={{
-            opacity: 1,
-            y: 0,
-          }}
-          transition={{
-            duration: 1,
-            ease: [0.22, 1, 0.36, 1],
-          }}
-          className="
-            group/hero
-
-            relative
-
-            min-h-[500px]
-
-            overflow-hidden
-
-            rounded-[30px]
-
-            border
-            border-[#d4af37]/15
-
-            bg-[#050505]
-
-            shadow-[0_40px_130px_rgba(0,0,0,.75)]
-
-            sm:min-h-[560px]
-
-            md:min-h-[600px]
-
-            lg:min-h-[640px]
-
-            xl:min-h-[670px]
-          "
-        >
-          {/* HERO IMAGE */}
-
-          <div
-            className="
-              absolute
-              inset-0
-
-              scale-[1.025]
-
-              bg-cover
-              bg-center
-              bg-no-repeat
-
-              opacity-55
-
-              transition-transform
-              duration-[2400ms]
-
-              group-hover/hero:scale-[1.065]
-            "
-            style={{
-              backgroundImage: "url('/images/attar-hero.webp')",
-            }}
-          />
-
-          {/* DARK OVERLAY */}
-
-          <div
-            className="
-              absolute
-              inset-0
-
-              bg-[linear-gradient(90deg,rgba(0,0,0,.98)_0%,rgba(0,0,0,.88)_32%,rgba(0,0,0,.52)_67%,rgba(0,0,0,.80)_100%)]
-            "
-          />
-
-          <div
-            className="
-              absolute
-              inset-0
-
-              bg-gradient-to-t
-              from-[#020202]
-              via-transparent
-              to-black/30
-            "
-          />
-
-          {/* GOLD LIGHT */}
-
-          <div
-            className="
-              pointer-events-none
-
-              absolute
-              left-1/2
-              top-[-300px]
-
-              h-[700px]
-              w-[1100px]
-
-              -translate-x-1/2
-
-              rounded-full
-
-              bg-[#d4af37]/[.075]
-
-              blur-[170px]
-
-              transition-all
-              duration-[1800ms]
-
-              group-hover/hero:bg-[#d4af37]/[.12]
-            "
-          />
-
-          {/* HERO CONTENT */}
-
-          <div
-            className="
-              relative
-              z-10
-
-              flex
-              min-h-[500px]
-
-              flex-col
-              items-center
-              justify-center
-
-              px-5
-              py-16
-
-              text-center
-
-              sm:min-h-[560px]
-              sm:px-10
-
-              md:min-h-[600px]
-
-              lg:min-h-[640px]
-
-              xl:min-h-[670px]
-            "
-          >
-            {/* HOUSE */}
-
-            <motion.div
-              initial={{
-                opacity: 0,
-                y: 15,
-              }}
-              animate={{
-                opacity: 1,
-                y: 0,
-              }}
-              transition={{
-                delay: 0.15,
-              }}
-              className="
-                flex
-                items-center
-                gap-3
-              "
-            >
-              <span
-                className="
-                  h-px
-                  w-8
-
-                  bg-gradient-to-r
-                  from-transparent
-                  to-[#d4af37]
-                "
-              />
-
-              <p
-                className="
-                  text-[7px]
-                  font-bold
-                  uppercase
-                  tracking-[.38em]
-
-                  text-[#d4af37]
-
-                  sm:text-[8px]
-                "
-              >
-                The House Of Al Misbah
-              </p>
-
-              <span
-                className="
-                  h-px
-                  w-8
-
-                  bg-gradient-to-l
-                  from-transparent
-                  to-[#d4af37]
-                "
-              />
-            </motion.div>
-
-            {/* ARABIC */}
-
-            <motion.p
-              initial={{
-                opacity: 0,
-                y: 10,
-              }}
-              animate={{
-                opacity: 1,
-                y: 0,
-              }}
-              transition={{
-                delay: 0.25,
-                duration: 0.6,
-              }}
-              className="
-                mt-5
-
-                font-display
-
-                text-[28px]
-
-                text-[#d4af37]
-
-                drop-shadow-[0_5px_30px_rgba(212,175,55,.20)]
-
-                sm:text-4xl
-                md:text-5xl
-                lg:text-[54px]
-              "
-            >
-              مجموعة العطور
-            </motion.p>
-
-            {/* SMALL LABEL */}
-
-            <div
-              className="
-                mt-5
-
-                flex
-                items-center
-                justify-center
-                gap-3
-
-                text-[6px]
-                font-bold
-                uppercase
-                tracking-[.32em]
-
-                text-white/65
-
-                sm:text-[8px]
-              "
-            >
-              <span>PURE FRAGRANCES</span>
-
-              <span className="text-[#d4af37]">◆</span>
-
-              <span>MUMBAI ATELIER</span>
-            </div>
-
-            {/* MAIN TITLE */}
-
-            <motion.h1
-              initial={{
-                opacity: 0,
-                y: 20,
-              }}
-              animate={{
-                opacity: 1,
-                y: 0,
-              }}
-              transition={{
-                delay: 0.3,
-                duration: 0.8,
-              }}
-              className="
-                mt-6
-
-                max-w-[1100px]
-
-                font-display
-
-                text-[47px]
-                font-medium
-                leading-[.86]
-
-                text-[#f5d76e]
-
-                drop-shadow-[0_8px_40px_rgba(212,175,55,.20)]
-
-                sm:text-6xl
-                md:text-7xl
-                lg:text-[6.8rem]
-                xl:text-[7.6rem]
-              "
-            >
-              The Perfume
-              <br />
-              <span className="text-white/[.94]">Collection</span>
-            </motion.h1>
-
-            {/* ORNAMENT */}
-
-            <div
-              className="
-                mt-8
-
-                flex
-                items-center
-                gap-3
-              "
-            >
-              <span
-                className="
-                  h-px
-                  w-12
-
-                  bg-gradient-to-r
-                  from-transparent
-                  to-[#d4af37]
-                "
-              />
-
-              <span
-                className="
-                  h-2
-                  w-2
-
-                  rotate-45
-
-                  border
-                  border-[#d4af37]
-
-                  shadow-[0_0_18px_rgba(212,175,55,.4)]
-                "
-              />
-
-              <span
-                className="
-                  h-px
-                  w-12
-
-                  bg-gradient-to-l
-                  from-transparent
-                  to-[#d4af37]
-                "
-              />
-            </div>
-
-            {/* DESCRIPTION */}
-
-            <p
-              className="
-                mt-7
-
-                max-w-[690px]
-
-                text-[9px]
-                leading-5
-
-                text-white/50
-
-                sm:text-xs
-                sm:leading-6
-
-                md:text-sm
-                md:leading-7
-              "
-            >
-              A new chapter of refined fragrances is being prepared by the House of Al Misbah —
-              Royal OUD, Signature EDP and Woody Collection.
-            </p>
-
-            {/* QUOTE */}
-
-            <p
-              className="
-                mt-4
-
-                font-display
-                text-[15px]
-                italic
-
-                text-[#f5d76e]/90
-
-                sm:text-base
-                md:text-lg
-              "
-            >
-              More than fragrance.
-              <span className="text-white/45"> An expression of you.</span>
-            </p>
-
-            {/* SMALL STATUS */}
-
-            <div
-              className="
-                mt-7
-
-                inline-flex
-                items-center
-                gap-2
-
-                rounded-full
-
-                border
-                border-[#d4af37]/20
-
-                bg-black/30
-
-                px-4
-                py-2
-
-                backdrop-blur-xl
-              "
-            >
-              <Crown
-                className="
-                  h-3
-                  w-3
-
-                  text-[#d4af37]
-                "
-                strokeWidth={1.3}
-              />
-
-              <span
-                className="
-                  text-[6px]
-                  font-bold
-                  uppercase
-                  tracking-[.25em]
-
-                  text-white/45
-
-                  sm:text-[7px]
-                "
-              >
-                The Collection Is In Preparation
-              </span>
-            </div>
-          </div>
-
-          {/* CORNER TOP */}
-
-          <div
-            className="
-              pointer-events-none
-
-              absolute
-              left-5
-              top-5
-
-              h-16
-              w-16
-
-              border-l
-              border-t
-              border-[#d4af37]/35
-
-              sm:left-7
-              sm:top-7
-            "
-          />
-
-          {/* CORNER BOTTOM */}
-
-          <div
-            className="
-              pointer-events-none
-
-              absolute
-              bottom-5
-              right-5
-
-              h-16
-              w-16
-
-              border-b
-              border-r
-              border-[#d4af37]/35
-
-              sm:bottom-7
-              sm:right-7
-            "
-          />
-        </motion.section>
+      <motion.section
+  initial={{
+    opacity: 0,
+    y: 25,
+  }}
+  animate={{
+    opacity: 1,
+    y: 0,
+  }}
+  transition={{
+    duration: 1,
+    ease: [0.22, 1, 0.36, 1],
+  }}
+  className="
+    group/hero
+    relative
+    min-h-[400px]
+    overflow-hidden
+    rounded-[24px]
+    border
+    border-[#d4af37]/15
+    bg-[#050505]
+    shadow-[0_30px_100px_rgba(0,0,0,.70)]
+
+    sm:min-h-[440px]
+    sm:rounded-[28px]
+
+    md:min-h-[470px]
+
+    lg:min-h-[510px]
+
+    xl:min-h-[540px]
+  "
+>
+  {/* HERO IMAGE */}
+  <div
+    className="
+      absolute
+      inset-0
+      scale-[1.025]
+      bg-cover
+      bg-center
+      bg-no-repeat
+      opacity-55
+      transition-transform
+      duration-[2400ms]
+      group-hover/hero:scale-[1.06]
+    "
+    style={{
+      backgroundImage: "url('/images/attar-hero.webp')",
+    }}
+  />
+
+  {/* DARK OVERLAY */}
+  <div
+    className="
+      absolute
+      inset-0
+      bg-[linear-gradient(90deg,rgba(0,0,0,.98)_0%,rgba(0,0,0,.88)_35%,rgba(0,0,0,.52)_67%,rgba(0,0,0,.80)_100%)]
+    "
+  />
+
+  <div
+    className="
+      absolute
+      inset-0
+      bg-gradient-to-t
+      from-[#020202]
+      via-transparent
+      to-black/25
+    "
+  />
+
+  {/* GOLD LIGHT */}
+  <div
+    className="
+      pointer-events-none
+      absolute
+      left-1/2
+      top-[-280px]
+      h-[600px]
+      w-[900px]
+      -translate-x-1/2
+      rounded-full
+      bg-[#d4af37]/[.065]
+      blur-[150px]
+      transition-all
+      duration-[1800ms]
+      group-hover/hero:bg-[#d4af37]/[.10]
+    "
+  />
+
+  {/* HERO CONTENT */}
+  <div
+    className="
+      relative
+      z-10
+      flex
+      min-h-[400px]
+      flex-col
+      items-center
+      justify-center
+      px-5
+      py-8
+      text-center
+
+      sm:min-h-[440px]
+      sm:px-8
+      sm:py-10
+
+      md:min-h-[470px]
+
+      lg:min-h-[510px]
+      lg:px-10
+
+      xl:min-h-[540px]
+    "
+  >
+    {/* HOUSE */}
+    <motion.div
+      initial={{
+        opacity: 0,
+        y: 15,
+      }}
+      animate={{
+        opacity: 1,
+        y: 0,
+      }}
+      transition={{
+        delay: 0.15,
+      }}
+      className="
+        flex
+        items-center
+        gap-2
+        sm:gap-3
+      "
+    >
+      <span
+        className="
+          h-px
+          w-6
+          bg-gradient-to-r
+          from-transparent
+          to-[#d4af37]
+          sm:w-8
+        "
+      />
+
+      <p
+        className="
+          text-[6px]
+          font-bold
+          uppercase
+          tracking-[.32em]
+          text-[#d4af37]
+          sm:text-[8px]
+          sm:tracking-[.38em]
+        "
+      >
+        The House Of Al Misbah
+      </p>
+
+      <span
+        className="
+          h-px
+          w-6
+          bg-gradient-to-l
+          from-transparent
+          to-[#d4af37]
+          sm:w-8
+        "
+      />
+    </motion.div>
+
+    {/* ARABIC */}
+    <motion.p
+      initial={{
+        opacity: 0,
+        y: 10,
+      }}
+      animate={{
+        opacity: 1,
+        y: 0,
+      }}
+      transition={{
+        delay: 0.25,
+        duration: 0.6,
+      }}
+      className="
+        mt-2.5
+        font-display
+        text-[22px]
+        text-[#d4af37]
+        drop-shadow-[0_5px_25px_rgba(212,175,55,.18)]
+
+        sm:mt-3
+        sm:text-3xl
+
+        md:text-4xl
+
+        lg:text-[46px]
+      "
+    >
+      مجموعة العطور
+    </motion.p>
+
+    {/* SMALL LABEL */}
+    <div
+      className="
+        mt-2
+        flex
+        items-center
+        justify-center
+        gap-2
+        text-[5px]
+        font-bold
+        uppercase
+        tracking-[.25em]
+        text-white/60
+
+        sm:mt-2.5
+        sm:gap-3
+        sm:text-[7px]
+        sm:tracking-[.30em]
+      "
+    >
+      <span>PURE FRAGRANCES</span>
+
+      <span className="text-[#d4af37]">◆</span>
+
+      <span>MUMBAI ATELIER</span>
+    </div>
+
+    {/* MAIN TITLE */}
+    <motion.h1
+      initial={{
+        opacity: 0,
+        y: 20,
+      }}
+      animate={{
+        opacity: 1,
+        y: 0,
+      }}
+      transition={{
+        delay: 0.3,
+        duration: 0.8,
+      }}
+      className="
+        mt-3
+        max-w-[900px]
+        font-display
+        text-[38px]
+        font-medium
+        leading-[.86]
+        text-[#f5d76e]
+        drop-shadow-[0_8px_35px_rgba(212,175,55,.18)]
+
+        sm:mt-4
+        sm:text-5xl
+
+        md:text-6xl
+
+        lg:text-[5.6rem]
+
+        xl:text-[6.4rem]
+      "
+    >
+      The Perfume
+      <br />
+      <span className="text-white/[.94]">Collection</span>
+    </motion.h1>
+
+    {/* ORNAMENT */}
+    <div
+      className="
+        mt-4
+        flex
+        items-center
+        gap-2
+
+        sm:mt-5
+        sm:gap-3
+      "
+    >
+      <span
+        className="
+          h-px
+          w-8
+          bg-gradient-to-r
+          from-transparent
+          to-[#d4af37]
+          sm:w-10
+        "
+      />
+
+      <span
+        className="
+          h-1.5
+          w-1.5
+          rotate-45
+          border
+          border-[#d4af37]
+          shadow-[0_0_14px_rgba(212,175,55,.35)]
+        "
+      />
+
+      <span
+        className="
+          h-px
+          w-8
+          bg-gradient-to-l
+          from-transparent
+          to-[#d4af37]
+          sm:w-10
+        "
+      />
+    </div>
+
+    {/* DESCRIPTION */}
+    <p
+      className="
+        mt-3
+        max-w-[600px]
+        text-[7.5px]
+        leading-4
+        text-white/45
+
+        sm:mt-4
+        sm:text-[11px]
+        sm:leading-5
+
+        md:text-xs
+        md:leading-6
+      "
+    >
+      A new chapter of refined fragrances is being prepared by the House of
+      Al Misbah — Royal OUD, Signature EDP and Woody Collection.
+    </p>
+
+    {/* QUOTE */}
+    <p
+      className="
+        mt-2
+        font-display
+        text-[12px]
+        italic
+        text-[#f5d76e]/90
+
+        sm:mt-2.5
+        sm:text-sm
+
+        md:text-base
+      "
+    >
+      More than fragrance.
+      <span className="text-white/40"> An expression of you.</span>
+    </p>
+
+    {/* STATUS */}
+    <div
+      className="
+        mt-3
+        inline-flex
+        items-center
+        gap-2
+        rounded-full
+        border
+        border-[#d4af37]/20
+        bg-black/30
+        px-3
+        py-1.5
+        backdrop-blur-xl
+
+        sm:mt-4
+        sm:px-4
+        sm:py-2
+      "
+    >
+      <Crown
+        className="
+          h-3
+          w-3
+          text-[#d4af37]
+        "
+        strokeWidth={1.3}
+      />
+
+      <span
+        className="
+          text-[6px]
+          font-bold
+          uppercase
+          tracking-[.25em]
+          text-white/45
+
+          sm:text-[7px]
+        "
+      >
+        The Collection Is In Preparation
+      </span>
+    </div>
+  </div>
+
+  {/* CORNER TOP */}
+  <div
+    className="
+      pointer-events-none
+      absolute
+      left-4
+      top-4
+      h-12
+      w-12
+      border-l
+      border-t
+      border-[#d4af37]/30
+
+      sm:left-6
+      sm:top-6
+      sm:h-14
+      sm:w-14
+    "
+  />
+
+  {/* CORNER BOTTOM */}
+  <div
+    className="
+      pointer-events-none
+      absolute
+      bottom-4
+      right-4
+      h-12
+      w-12
+      border-b
+      border-r
+      border-[#d4af37]/30
+
+      sm:bottom-6
+      sm:right-6
+      sm:h-14
+      sm:w-14
+    "
+  />
+</motion.section>
 
         {/* =================================================
             CATEGORY FILTER

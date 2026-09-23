@@ -657,7 +657,7 @@ function AttarPageProductCard({
   const notes = String(product?.notes ?? "").trim();
 
   const noteParts = notes
-    .split(/[•|,]/)
+    .split(/[•·|,]/)
     .map((item) => item.trim())
     .filter(Boolean);
 
@@ -868,35 +868,87 @@ function AttarPageProductCard({
         <ProductRating rating={rating} reviews={reviews} />
 
         {/* Features */}
-        <div className="mt-3 grid grid-cols-3 gap-1.5 sm:mt-4 sm:gap-2">
-          {featureNames.map((feature, featureIndex) => {
-            const Icon = featureIcons[featureIndex % featureIcons.length] ?? Flower2;
-            return (
-              <div
-                key={`${feature}-${featureIndex}`}
-                title={feature}
-                className="
-                    flex min-w-0 items-center justify-center gap-1
-                    rounded-full border border-[#d4af37]/20
-                    bg-white/[0.025]
-                    px-1.5 py-2
-                    text-center
-                    text-[6.5px] font-semibold uppercase
-                    tracking-[0.02em] text-white/55
-                    transition-all
-                    hover:border-[#d4af37]/50
-                    hover:bg-[#d4af37]/[0.05]
-                    sm:text-[8px]
-                  "
-              >
-                <Icon className="h-2.5 w-2.5 shrink-0 text-[#d4af37] sm:h-3 sm:w-3" />
+        <div
+  className="
+    -ml-1
+    mt-3
+    flex
+    w-full
+    min-w-0
+    items-center
+    justify-start
+    gap-1
+    overflow-hidden
 
-                <span className="truncate">{feature}</span>
-              </div>
-            );
-          })}
-        </div>
+    sm:-ml-2
+    sm:mt-4
+    sm:gap-2
+  "
+>
+  {featureNames.map((feature, featureIndex) => {
+    const Icon =
+      featureIcons[featureIndex % featureIcons.length] ?? Flower2;
 
+    return (
+      <div
+        key={`${feature}-${featureIndex}`}
+        title={feature}
+        className="
+          flex
+          shrink
+          min-w-0
+          items-center
+          justify-center
+          gap-0.5
+          rounded-full
+          border
+          border-[#d4af37]/20
+          bg-white/[0.035]
+          px-1.5
+          py-1.5
+          transition-all
+          duration-300
+          hover:border-[#d4af37]/50
+          hover:bg-[#d4af37]/[0.06]
+
+          sm:gap-1
+          sm:px-2.5
+          sm:py-2
+        "
+      >
+        <Icon
+          className="
+            h-2.5
+            w-2.5
+            shrink-0
+            text-[#d4af37]
+
+            sm:h-3
+            sm:w-3
+          "
+        />
+
+        <span
+          className="
+            whitespace-nowrap
+            text-[7.5px]
+            font-semibold
+            leading-none
+            tracking-normal
+            text-white/75
+
+            sm:text-[9px]
+            sm:tracking-[0.01em]
+          "
+        >
+          {feature}
+        </span>
+      </div>
+    );
+  })}
+</div>
+ 
+        
         {/* Price */}
         <div className="mt-4 border-t border-[#d4af37]/10 pt-3.5 sm:mt-5 sm:pt-4">
           <div className="flex items-end justify-between gap-2">
@@ -1430,299 +1482,347 @@ function AttarSeries() {
           {/* BACK */}
 
           <motion.div
-            initial={{
-              opacity: 0,
-              x: -15,
-            }}
-            animate={{
-              opacity: 1,
-              x: 0,
-            }}
-            transition={{
-              duration: 0.6,
-            }}
-            className="
-              mb-5
+  initial={{
+    opacity: 0,
+    x: -15,
+  }}
+  animate={{
+    opacity: 1,
+    x: 0,
+  }}
+  transition={{
+    duration: 0.6,
+  }}
+  className="
+    mb-5
+    sm:mb-7
+    lg:mb-9
+    lg:mt-8
+  "
+>
+  <Link
+    to="/"
+    className="
+      group
+      inline-flex
+      items-center
+      gap-2
+      rounded-full
+      border
+      border-white/20
+      bg-white
+      px-3.5
+      py-2.5
+      text-[7px]
+      font-semibold
+      uppercase
+      tracking-[0.2em]
+      text-black
+      backdrop-blur-md
+      transition-all
+      duration-300
+      hover:border-white
+      hover:bg-white
+      hover:text-black
+      active:scale-[0.97]
 
-              sm:mb-7
+      sm:px-5
+      sm:text-[9px]
+    "
+  >
+    <ArrowLeft
+      className="
+        h-3.5
+        w-3.5
+        text-black
+        transition-transform
+        duration-300
+        group-hover:-translate-x-1
+      "
+    />
 
-              lg:mb-9
-              lg:mt-8
-            "
-          >
-            <Link
-              to="/"
-              className="
-                group inline-flex items-center gap-2
-                rounded-full border border-white/10
-                bg-white/[0.035]
-                px-3.5 py-2.5
-                text-[7px] font-semibold uppercase
-                tracking-[0.2em] text-zinc-300
-                backdrop-blur-md
-                transition-all duration-300
-                hover:border-[#d4af37]/40
-                hover:bg-[#d4af37]/5
-                hover:text-[#f3e5ab]
-                active:scale-[0.97]
-                sm:px-5 sm:text-[9px]
-              "
-            >
-              <ArrowLeft
-                className="
-                  h-3.5
-                  w-3.5
+    Back to Home
+  </Link>
+</motion.div>
 
-                  transition-transform
-                  duration-300
-
-                  group-hover:-translate-x-1
-                "
-              />
-              Back to Home
-            </Link>
-          </motion.div>
-
-          {/* HERO */}
+          {/* =========================================================
+    PREMIUM COMPACT HERO
+========================================================= */}
 
           <motion.section
             initial={{
               opacity: 0,
-              y: 25,
+              y: 20,
             }}
             animate={{
               opacity: 1,
               y: 0,
             }}
             transition={{
-              duration: 1,
+              duration: 0.8,
               ease: [0.22, 1, 0.36, 1],
             }}
             className="
-              group/hero
-              relative
+    group/hero
+    relative
 
-              min-h-[500px]
+    min-h-[400px]
 
-              overflow-hidden
+    overflow-hidden
 
-              rounded-[30px]
+    rounded-[24px]
 
-              border
-              border-[#d4af37]/15
+    border
+    border-[#d4af37]/15
 
-              bg-[#050505]
+    bg-[#050505]
 
-              shadow-[0_40px_130px_rgba(0,0,0,.75)]
+    shadow-[0_30px_100px_rgba(0,0,0,.70)]
 
-              sm:min-h-[560px]
+    sm:min-h-[440px]
+    sm:rounded-[28px]
 
-              md:min-h-[600px]
+    md:min-h-[470px]
 
-              lg:min-h-[640px]
+    lg:min-h-[510px]
 
-              xl:min-h-[670px]
-            "
+    xl:min-h-[540px]
+  "
           >
-            {/* HERO IMAGE */}
+            {/* =======================================================
+      HERO IMAGE
+  ======================================================= */}
 
             <div
               className="
-                absolute
-                inset-0
+      absolute
+      inset-0
 
-                scale-[1.025]
+      scale-[1.025]
 
-                bg-cover
-                bg-center
-                bg-no-repeat
+      bg-cover
+      bg-center
+      bg-no-repeat
 
-                opacity-55
+      opacity-55
 
-                transition-transform
-                duration-[2400ms]
+      transition-transform
+      duration-[2400ms]
 
-                group-hover/hero:scale-[1.065]
-              "
+      group-hover/hero:scale-[1.06]
+    "
               style={{
                 backgroundImage: "url('/images/attar-hero.webp')",
               }}
             />
 
-            {/* DARK CINEMATIC OVERLAY */}
+            {/* =======================================================
+      DARK CINEMATIC OVERLAY
+  ======================================================= */}
 
             <div
               className="
-                absolute
-                inset-0
+      absolute
+      inset-0
 
-                bg-[linear-gradient(90deg,rgba(0,0,0,.98)_0%,rgba(0,0,0,.88)_32%,rgba(0,0,0,.52)_67%,rgba(0,0,0,.80)_100%)]
-              "
+      bg-[linear-gradient(90deg,rgba(0,0,0,.98)_0%,rgba(0,0,0,.88)_35%,rgba(0,0,0,.52)_67%,rgba(0,0,0,.80)_100%)]
+    "
             />
 
             <div
               className="
-                absolute
-                inset-0
+      absolute
+      inset-0
 
-                bg-gradient-to-t
-                from-[#020202]
-                via-transparent
-                to-black/30
-              "
+      bg-gradient-to-t
+      from-[#020202]
+      via-transparent
+      to-black/25
+    "
             />
 
-            {/* GOLD LIGHT */}
+            {/* =======================================================
+      GOLD LIGHT
+  ======================================================= */}
 
             <div
               className="
-                pointer-events-none
+      pointer-events-none
 
-                absolute
-                left-1/2
-                top-[-300px]
+      absolute
+      left-1/2
+      top-[-280px]
 
-                h-[700px]
-                w-[1100px]
+      h-[600px]
+      w-[900px]
 
-                -translate-x-1/2
+      -translate-x-1/2
 
-                rounded-full
+      rounded-full
 
-                bg-[#d4af37]/[.075]
+      bg-[#d4af37]/[.065]
 
-                blur-[170px]
+      blur-[150px]
 
-                transition-all
-                duration-[1800ms]
+      transition-all
+      duration-[1800ms]
 
-                group-hover/hero:bg-[#d4af37]/[.12]
-              "
+      group-hover/hero:bg-[#d4af37]/[.10]
+    "
             />
 
-            {/* HERO CONTENT */}
+            {/* =======================================================
+      HERO CONTENT
+  ======================================================= */}
 
             <div
               className="
-                relative
-                z-10
+      relative
+      z-10
 
-                flex
-                min-h-[500px]
+      flex
+      min-h-[400px]
 
-                flex-col
-                items-center
-                justify-center
+      flex-col
+      items-center
+      justify-center
 
-                px-5
-                py-16
+      px-5
+      py-8
 
-                text-center
+      text-center
 
-                sm:min-h-[560px]
-                sm:px-10
+      sm:min-h-[440px]
+      sm:px-8
+      sm:py-10
 
-                md:min-h-[600px]
+      md:min-h-[470px]
 
-                lg:min-h-[640px]
+      lg:min-h-[510px]
+      lg:px-10
 
-                xl:min-h-[670px]
-              "
+      xl:min-h-[540px]
+    "
             >
+              {/* =====================================================
+        HOUSE OF AL MISBAH
+    ===================================================== */}
+
               <motion.div
                 initial={{
                   opacity: 0,
-                  y: 15,
+                  y: 10,
                 }}
                 animate={{
                   opacity: 1,
                   y: 0,
                 }}
                 transition={{
-                  delay: 0.15,
+                  delay: 0.1,
                 }}
                 className="
-                  flex
-                  items-center
-                  gap-3
-                "
+        flex
+        items-center
+        gap-2
+
+        sm:gap-3
+      "
               >
                 <span
                   className="
-                    h-px
-                    w-8
+          h-px
+          w-6
 
-                    bg-gradient-to-r
-                    from-transparent
-                    to-[#d4af37]
-                  "
+          bg-gradient-to-r
+          from-transparent
+          to-[#d4af37]
+
+          sm:w-8
+        "
                 />
 
                 <p
                   className="
-                    text-[7px]
-                    font-bold
-                    uppercase
-                    tracking-[.38em]
+          text-[6px]
+          font-bold
+          uppercase
+          tracking-[.32em]
 
-                    text-[#d4af37]
+          text-[#d4af37]
 
-                    sm:text-[8px]
-                  "
+          sm:text-[8px]
+          sm:tracking-[.38em]
+        "
                 >
                   The House Of Al Misbah
                 </p>
 
                 <span
                   className="
-                    h-px
-                    w-8
+          h-px
+          w-6
 
-                    bg-gradient-to-l
-                    from-transparent
-                    to-[#d4af37]
-                  "
+          bg-gradient-to-l
+          from-transparent
+          to-[#d4af37]
+
+          sm:w-8
+        "
                 />
               </motion.div>
 
+              {/* =====================================================
+        ARABIC TITLE
+    ===================================================== */}
+
               <p
                 className="
-                  mt-5
+        mt-2.5
 
-                  font-display
+        font-display
 
-                  text-[28px]
+        text-[22px]
 
-                  text-[#d4af37]
+        text-[#d4af37]
 
-                  drop-shadow-[0_5px_30px_rgba(212,175,55,.20)]
+        drop-shadow-[0_5px_25px_rgba(212,175,55,.18)]
 
-                  sm:text-4xl
-                  md:text-5xl
-                  lg:text-[54px]
-                "
+        sm:mt-3
+        sm:text-3xl
+
+        md:text-4xl
+
+        lg:text-[46px]
+      "
               >
                 مجموعة العطور
               </p>
 
+              {/* =====================================================
+        PURE ATTARS / MUMBAI ATELIER
+    ===================================================== */}
+
               <div
                 className="
-                  mt-5
+        mt-2
 
-                  flex
-                  items-center
-                  justify-center
-                  gap-3
+        flex
+        items-center
+        justify-center
+        gap-2
 
-                  text-[6px]
-                  font-bold
-                  uppercase
-                  tracking-[.32em]
+        text-[5px]
+        font-bold
+        uppercase
+        tracking-[.25em]
 
-                  text-white/65
+        text-white/60
 
-                  sm:text-[8px]
-                "
+        sm:mt-2.5
+        sm:gap-3
+        sm:text-[7px]
+        sm:tracking-[.30em]
+      "
               >
                 <span>PURE ATTARS</span>
 
@@ -1731,169 +1831,210 @@ function AttarSeries() {
                 <span>MUMBAI ATELIER</span>
               </div>
 
+              {/* =====================================================
+        MAIN TITLE
+    ===================================================== */}
+
               <h1
                 className="
-                  mt-6
+        mt-3
 
-                  max-w-[1100px]
+        max-w-[900px]
 
-                  font-display
+        font-display
 
-                  text-[47px]
-                  font-medium
-                  leading-[.86]
+        text-[38px]
+        font-medium
+        leading-[.86]
 
-                  text-[#f5d76e]
+        text-[#f5d76e]
 
-                  drop-shadow-[0_8px_40px_rgba(212,175,55,.20)]
+        drop-shadow-[0_8px_35px_rgba(212,175,55,.18)]
 
-                  sm:text-6xl
-                  md:text-7xl
-                  lg:text-[6.8rem]
-                  xl:text-[7.6rem]
-                "
+        sm:mt-4
+        sm:text-5xl
+
+        md:text-6xl
+
+        lg:text-[5.6rem]
+
+        xl:text-[6.4rem]
+      "
               >
                 The Attar
                 <br />
                 <span className="text-white/[.94]">Collection</span>
               </h1>
 
-              {/* ORNAMENT */}
+              {/* =====================================================
+        ORNAMENT
+    ===================================================== */}
 
               <div
                 className="
-                  mt-8
+        mt-4
 
-                  flex
-                  items-center
-                  gap-3
-                "
+        flex
+        items-center
+        gap-2
+
+        sm:mt-5
+        sm:gap-3
+      "
               >
                 <span
                   className="
-                    h-px
-                    w-12
+          h-px
+          w-8
 
-                    bg-gradient-to-r
-                    from-transparent
-                    to-[#d4af37]
-                  "
+          bg-gradient-to-r
+          from-transparent
+          to-[#d4af37]
+
+          sm:w-10
+        "
                 />
 
                 <span
                   className="
-                    h-2
-                    w-2
+          h-1.5
+          w-1.5
 
-                    rotate-45
+          rotate-45
 
-                    border
-                    border-[#d4af37]
+          border
+          border-[#d4af37]
 
-                    shadow-[0_0_18px_rgba(212,175,55,.4)]
-                  "
+          shadow-[0_0_14px_rgba(212,175,55,.35)]
+        "
                 />
 
                 <span
                   className="
-                    h-px
-                    w-12
+          h-px
+          w-8
 
-                    bg-gradient-to-l
-                    from-transparent
-                    to-[#d4af37]
-                  "
+          bg-gradient-to-l
+          from-transparent
+          to-[#d4af37]
+
+          sm:w-10
+        "
                 />
               </div>
 
+              {/* =====================================================
+        DESCRIPTION
+    ===================================================== */}
+
               <p
                 className="
-                  mt-7
+        mt-3
 
-                  max-w-[690px]
+        max-w-[600px]
 
-                  text-[9px]
-                  leading-5
+        text-[7.5px]
+        leading-4
 
-                  text-white/50
+        text-white/45
 
-                  sm:text-xs
-                  sm:leading-6
+        sm:mt-4
+        sm:text-[11px]
+        sm:leading-5
 
-                  md:text-sm
-                  md:leading-7
-                "
+        md:text-xs
+        md:leading-6
+      "
               >
                 Discover concentrated fragrance oils crafted around timeless Indian perfumery
                 traditions — floral, woody, sweet, fresh and oud.
               </p>
 
+              {/* =====================================================
+        TAGLINE
+    ===================================================== */}
+
               <p
                 className="
-                  mt-4
+        mt-2
 
-                  font-display
-                  text-[15px]
-                  italic
+        font-display
+        text-[12px]
+        italic
 
-                  text-[#f5d76e]/90
+        text-[#f5d76e]/90
 
-                  sm:text-base
-                  md:text-lg
-                "
+        sm:mt-2.5
+        sm:text-sm
+
+        md:text-base
+      "
               >
                 More than fragrance.
-                <span className="text-white/45"> An expression of you.</span>
+                <span className="text-white/40"> An expression of you.</span>
               </p>
 
-              {/* BENEFITS */}
+              {/* =====================================================
+        BENEFITS
+    ===================================================== */}
 
               <div
                 className="
-                  mt-7
+        mt-3
 
-                  flex
-                  flex-wrap
-                  items-center
-                  justify-center
-                  gap-2
-                "
+        flex
+        flex-wrap
+        items-center
+        justify-center
+        gap-1.5
+
+        sm:mt-4
+        sm:gap-2
+      "
               >
                 {["Concentrated Oils", "Alcohol Free", "Long Lasting"].map((item) => (
                   <span
                     key={item}
                     className="
-                      inline-flex
-                      items-center
-                      gap-1.5
+            inline-flex
+            items-center
+            gap-1
 
-                      rounded-full
+            rounded-full
 
-                      border
-                      border-white/10
+            border
+            border-white/10
 
-                      bg-black/30
+            bg-black/25
 
-                      px-3
-                      py-1.5
+            px-2.5
+            py-1
 
-                      text-[5.5px]
-                      font-semibold
-                      uppercase
-                      tracking-[.12em]
+            text-[4.5px]
+            font-semibold
+            uppercase
+            tracking-[.08em]
 
-                      text-white/50
+            text-white/45
 
-                      backdrop-blur-xl
-                    "
+            backdrop-blur-xl
+
+            sm:px-3
+            sm:py-1.5
+            sm:text-[6px]
+            sm:tracking-[.10em]
+          "
                   >
                     <Check
                       className="
-                        h-2.5
-                        w-2.5
+              h-2
+              w-2
 
-                        text-[#d4af37]
-                      "
+              text-[#d4af37]
+
+              sm:h-2.5
+              sm:w-2.5
+            "
                     />
 
                     {item}
@@ -1902,46 +2043,56 @@ function AttarSeries() {
               </div>
             </div>
 
-            {/* CORNERS */}
+            {/* =======================================================
+      TOP LEFT CORNER
+  ======================================================= */}
 
             <div
               className="
-                pointer-events-none
+      pointer-events-none
 
-                absolute
-                left-5
-                top-5
+      absolute
+      left-4
+      top-4
 
-                h-16
-                w-16
+      h-12
+      w-12
 
-                border-l
-                border-t
-                border-[#d4af37]/35
+      border-l
+      border-t
+      border-[#d4af37]/30
 
-                sm:left-7
-                sm:top-7
-              "
+      sm:left-6
+      sm:top-6
+      sm:h-14
+      sm:w-14
+    "
             />
 
+            {/* =======================================================
+      BOTTOM RIGHT CORNER
+  ======================================================= */}
+
             <div
               className="
-                pointer-events-none
+      pointer-events-none
 
-                absolute
-                bottom-5
-                right-5
+      absolute
+      bottom-4
+      right-4
 
-                h-16
-                w-16
+      h-12
+      w-12
 
-                border-b
-                border-r
-                border-[#d4af37]/35
+      border-b
+      border-r
+      border-[#d4af37]/30
 
-                sm:bottom-7
-                sm:right-7
-              "
+      sm:bottom-6
+      sm:right-6
+      sm:h-14
+      sm:w-14
+    "
             />
           </motion.section>
 
@@ -2382,7 +2533,7 @@ function AttarSeries() {
 
                   text-[8px]
 
-                  text-white/30
+                  text-white/60
 
                   sm:text-[9px]
                 "
@@ -2918,14 +3069,21 @@ function AttarSeries() {
 
                     <p
                       className="
-                          mt-1
+    mt-1.5
+    max-w-[260px]
 
-                          text-[7px]
+    text-[11px]
+    font-medium
+    leading-5
 
-                          text-white/60
+    text-white/80
 
-                          sm:text-[8px]
-                        "
+    sm:text-[12px]
+    sm:leading-5
+
+    md:text-[13px]
+    md:leading-6
+  "
                     >
                       {item.text}
                     </p>

@@ -208,70 +208,67 @@ function CartRoute() {
         =================================================== */}
 
         <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{
-            duration: 0.6,
-            delay: 0.1,
-            ease,
-          }}
-          className="pt-2 sm:pt-3 lg:pt-4"
-        >
-          <Link
-            to="/"
-            onClick={() => {
-              window.scrollTo({
-                top: 0,
-                behavior: "smooth",
-              });
-            }}
-            className="
-              group
-              inline-flex
-              items-center
-              gap-2
-              rounded-full
-              border
-              border-white/[0.10]
-              bg-[#0b0b0b]/80
-              px-3.5
-              py-2.5
-              text-[9px]
-              font-bold
-              uppercase
-              tracking-[0.18em]
-              text-zinc-400
-              shadow-[0_10px_30px_rgba(0,0,0,0.45)]
-              backdrop-blur-xl
-              transition-all
-              duration-300
+  initial={{ opacity: 0, x: -20 }}
+  animate={{ opacity: 1, x: 0 }}
+  transition={{
+    duration: 0.6,
+    delay: 0.1,
+    ease,
+  }}
+  className="pt-2 sm:pt-3 lg:pt-4"
+>
+  <Link
+    to="/"
+    onClick={() => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }}
+    className="
+      group
+      inline-flex
+      items-center
+      gap-2
+      rounded-full
+      border
+      border-white
+      bg-white
+      px-3.5
+      py-2.5
+      text-[7px]
+      font-semibold
+      uppercase
+      tracking-[0.2em]
+      text-black
+      backdrop-blur-md
+      transition-all
+      duration-300
 
-              hover:border-[#d4af37]/50
-              hover:bg-[#d4af37]/[0.06]
-              hover:text-[#f3e5ab]
+      hover:border-white
+      hover:bg-white
+      hover:text-black
 
-              sm:px-4
-              sm:py-2.5
-              sm:text-[10px]
-            "
-          >
-            <ArrowLeft
-              className="
-                h-3.5
-                w-3.5
-                transition-transform
-                duration-300
-                group-hover:-translate-x-1
-                group-hover:text-[#d4af37]
+      active:scale-[0.97]
 
-                sm:h-4
-                sm:w-4
-              "
-            />
+      sm:px-5
+      sm:text-[9px]
+    "
+  >
+    <ArrowLeft
+      className="
+        h-3.5
+        w-3.5
+        text-black
+        transition-transform
+        duration-300
+        group-hover:-translate-x-1
+      "
+    />
 
-            <span>Back to Home</span>
-          </Link>
-        </motion.div>
+    <span>Back to Home</span>
+  </Link>
+</motion.div>
 
         {/* ===================================================
             HEADER

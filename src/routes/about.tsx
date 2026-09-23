@@ -298,54 +298,65 @@ function About() {
         {/* ====================================================
             BACK HOME
         ==================================================== */}
-        <motion.div
-          initial={{ opacity: 0, x: -18 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.7, ease }}
-          className="pt-12 sm:pt-12 lg:pt-14"
-        >
-          <Link
-            to="/"
-            onClick={() => {
-              window.scrollTo({
-                top: 0,
-                behavior: "smooth",
-              });
-            }}
-            className="
+<motion.div
+  initial={{ opacity: 0, x: -18 }}
+  animate={{ opacity: 1, x: 0 }}
+  transition={{ duration: 0.7, ease }}
+  className="
+    pt-6
+    sm:pt-12
+    lg:pt-14
+  "
+>
+  <Link
+    to="/"
+    onClick={() => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }}
+    className="
       group
       inline-flex
-      min-h-[42px]
       items-center
-      gap-2.5
+      gap-2
       rounded-full
       border
-      border-white/[0.13]
-      bg-[#111]/85
-      px-4
-      text-[8px]
+      border-white
+      bg-white
+      px-3.5
+      py-2.5
+      text-[7px]
       font-semibold
       uppercase
-      tracking-[0.22em]
-      text-zinc-300
-      shadow-[0_10px_35px_rgba(0,0,0,0.35)]
-      backdrop-blur-xl
+      tracking-[0.2em]
+      text-black
+      backdrop-blur-md
       transition-all
       duration-300
-      hover:border-[#d4af37]/50
-      hover:bg-[#d4af37]/[0.08]
-      hover:text-[#f3e5ab]
-      active:scale-95
-      sm:min-h-[44px]
+      hover:border-white
+      hover:bg-white
+      hover:text-black
+      active:scale-[0.97]
       sm:px-5
       sm:text-[9px]
     "
-          >
-            <ArrowLeft className="h-4 w-4 text-zinc-300 transition-all duration-300 group-hover:-translate-x-1 group-hover:text-[#d4af37]" />
+  >
+    <ArrowLeft
+      className="
+        h-3.5
+        w-3.5
+        text-black
+        transition-transform
+        duration-300
+        group-hover:-translate-x-1
+      "
+    />
 
-            <span>Back to Home</span>
-          </Link>
-        </motion.div>
+    <span>Back to Home</span>
+  </Link>
+</motion.div>
 
         {/* ====================================================
             HERO

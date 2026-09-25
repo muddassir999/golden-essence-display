@@ -735,8 +735,9 @@ function Index() {
       {/* =========================================================
           OUR TWO HOUSES
       ========================================================= */}
-      <section
-        className="
+
+<section
+  className="
     relative
     w-full
     border-y
@@ -748,19 +749,19 @@ function Index() {
     lg:py-14
     xl:py-16
   "
-      >
-        {/* LUXURIOUS GOLDEN GLOW BACKGROUND */}
-        <div
-          className="
+>
+  {/* LUXURIOUS GOLDEN GLOW BACKGROUND */}
+  <div
+    className="
       pointer-events-none
       absolute
       inset-0
       bg-[radial-gradient(circle_at_center,rgba(212,175,55,0.12),transparent_70%)]
     "
-        />
+  />
 
-        <div
-          className="
+  <div
+    className="
       relative
       z-10
       mx-auto
@@ -773,20 +774,32 @@ function Index() {
       xl:px-16
       2xl:px-20
     "
-        >
-          {/* HEADING */}
-          <motion.div
-            initial={{ opacity: 0, y: 25 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{
-              once: true,
-              amount: 0.2,
-            }}
-            transition={{ duration: 0.7 }}
-            className="mx-auto max-w-3xl text-center"
-          >
-            <p
-              className="
+  >
+    {/* ================= HEADING ================= */}
+    <motion.div
+      initial={{
+        opacity: 0,
+        y: 25,
+      }}
+      whileInView={{
+        opacity: 1,
+        y: 0,
+      }}
+      viewport={{
+        once: true,
+        amount: 0.2,
+      }}
+      transition={{
+        duration: 0.7,
+      }}
+      className="
+        mx-auto
+        max-w-3xl
+        text-center
+      "
+    >
+      <p
+        className="
           mb-0
           font-['Amiri']
           text-lg
@@ -795,23 +808,23 @@ function Index() {
           sm:text-xl
           lg:text-[24px]
         "
-            >
-              التراث والعرافة
-            </p>
+      >
+        التراث والعرافة
+      </p>
 
-            <h2
-              className="
+      <h2
+        className="
           font-display
           text-[clamp(1.8rem,4vw,3rem)]
           tracking-wide
           text-white
         "
-            >
-              Our Two Houses
-            </h2>
+      >
+        Our Two Houses
+      </h2>
 
-            <div
-              className="
+      <div
+        className="
           rule-gold
           mx-auto
           mt-3
@@ -820,82 +833,107 @@ function Index() {
           sm:w-20
           lg:w-24
         "
-            />
-          </motion.div>
+      />
+    </motion.div>
 
-          {/* CARDS */}
-          <div
-            className="
+    {/* ================= CARDS ================= */}
+    <div
+      className="
         mt-7
         grid
         grid-cols-1
         gap-5
-
         sm:mt-8
         sm:gap-6
-
         lg:grid-cols-2
         lg:gap-8
       "
+    >
+      {[
+        {
+          slug: "attar-series",
+          img: catAttar,
+          arabic: "عطور المسك",
+          title: "ATTAR",
+          subtitle: "COLLECTION",
+          line1: "Traditional concentrated oils.",
+          line2: "Pure • Rich • Long-lasting",
+          buttonText: "SHOP ATTARS",
+        },
+        {
+          slug: "perfume-series",
+          img: catPerfume,
+          arabic: "عطور الملكية",
+          title: "PERFUME",
+          subtitle: "COLLECTION",
+          line1: "Eau de parfum in crystal flacons.",
+          line2: "Radiant • Modern • Long-lasting",
+          buttonText: "SHOP PERFUMES",
+        },
+      ].map((c, index) => (
+        <motion.div
+          key={c.slug}
+          initial={{
+            opacity: 0,
+            y: 30,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          viewport={{
+            once: true,
+            amount: 0.15,
+          }}
+          transition={{
+            duration: 0.6,
+            delay: index * 0.1,
+          }}
+          className="min-w-0"
+        >
+          <Link
+            to={
+              c.slug === "attar-series"
+                ? "/attar-series"
+                : "/perfume-series"
+            }
+            className="
+              group
+              flex
+              h-full
+              flex-col
+              overflow-hidden
+              rounded-xl
+
+              border
+              border-gold/30
+
+              bg-[#160d08]
+
+              transition-all
+              duration-500
+              ease-out
+
+              /* DESKTOP HOVER */
+              hover:-translate-y-2
+              hover:border-gold
+              hover:shadow-[0_25px_55px_rgba(212,175,55,0.25)]
+
+              /* MOBILE TAP */
+              active:scale-[0.985]
+              active:border-gold
+              active:shadow-[0_15px_40px_rgba(212,175,55,0.25)]
+
+              focus-visible:outline-none
+              focus-visible:ring-2
+              focus-visible:ring-gold/70
+              focus-visible:ring-offset-2
+              focus-visible:ring-offset-[#2c1e14]
+            "
           >
-            {[
-              {
-                slug: "attar-series",
-                img: catAttar,
-                arabic: "عطور المسك",
-                label: "Attar Series",
-                copy: "Discover our complete collection of traditional attars, concentrated oils and floral fragrances.",
-              },
-              {
-                slug: "perfume-series",
-                img: catPerfume,
-                arabic: "عطور الملكية",
-                label: "Perfume Series",
-                copy: "Eau de parfum in crystal flacons — radiant, modern, long-lasting.",
-              },
-            ].map((c, index) => (
-              <motion.div
-                key={c.slug}
-                initial={{
-                  opacity: 0,
-                  y: 30,
-                }}
-                whileInView={{
-                  opacity: 1,
-                  y: 0,
-                }}
-                viewport={{
-                  once: true,
-                  amount: 0.15,
-                }}
-                transition={{
-                  duration: 0.6,
-                  delay: index * 0.1,
-                }}
-                className="min-w-0"
-              >
-                <Link
-                  to={c.slug === "attar-series" ? "/attar-series" : "/perfume-series"}
-                  className="
-    group
-    flex
-    h-full
-    flex-col
-    overflow-hidden
-    rounded-lg
-    border
-    border-gold/30
-    bg-[#211711]
-    transition-all
-    duration-500
-    hover:-translate-y-1.5
-    hover:border-gold
-    hover:shadow-[0_25px_50px_rgba(212,175,55,0.22)]
-  "
-                >
-                  {/* IMAGE */}
-                  <div
-                    className="
+            {/* ================= IMAGE ================= */}
+            <div
+              className="
                 relative
                 aspect-[16/9]
                 w-full
@@ -903,132 +941,336 @@ function Index() {
                 bg-black
 
                 sm:aspect-[16/8.5]
-
                 lg:aspect-[16/8]
                 xl:aspect-[16/7.8]
               "
-                  >
-                    <img
-                      src={c.img}
-                      alt={c.label}
-                      loading="lazy"
-                      decoding="async"
-                      className="
+            >
+              <img
+                src={c.img}
+                alt={c.title}
+                loading="lazy"
+                decoding="async"
+                className="
                   h-full
                   w-full
                   object-cover
+
                   transition-transform
                   duration-700
                   ease-out
-                  group-hover:scale-105
-                "
-                    />
 
-                    <div
-                      className="
+                  /* DESKTOP */
+                  group-hover:scale-105
+
+                  /* MOBILE TAP */
+                  group-active:scale-[1.03]
+                "
+              />
+
+              {/* IMAGE DARK GRADIENT */}
+              <div
+                className="
+                  pointer-events-none
                   absolute
                   inset-0
                   bg-gradient-to-t
-                  from-[#211711]
+                  from-[#160d08]
                   via-transparent
                   to-transparent
                   opacity-90
                 "
-                    />
-                  </div>
+              />
 
-                  {/* CONTENT */}
-                  <div
-                    className="
+              {/* GOLD IMAGE GLOW */}
+              <div
+                className="
+                  pointer-events-none
+                  absolute
+                  inset-0
+
+                  bg-[radial-gradient(circle_at_center,rgba(212,175,55,0.16),transparent_65%)]
+
+                  opacity-0
+                  transition-opacity
+                  duration-500
+
+                  group-hover:opacity-100
+                  group-active:opacity-100
+                "
+              />
+
+              {/* MOBILE GOLD BORDER GLOW */}
+              <div
+                className="
+                  pointer-events-none
+                  absolute
+                  inset-2
+                  rounded-lg
+                  border
+                  border-gold/0
+
+                  transition-all
+                  duration-500
+
+                  group-hover:border-gold/50
+                  group-active:border-gold/60
+                "
+              />
+            </div>
+
+            {/* ================= CONTENT ================= */}
+            <div
+              className="
+                relative
                 flex
                 flex-1
                 flex-col
                 items-center
                 justify-center
-                bg-[#211711]
+
+                bg-[#160d08]
+
                 px-4
-                py-5
+                py-6
                 text-center
 
                 sm:px-6
-                sm:py-6
+                sm:py-7
 
-                lg:px-7
-                lg:py-7
+                lg:px-8
+                lg:py-8
+
+                transition-colors
+                duration-500
+
+                group-hover:bg-[#1c1009]
+                group-active:bg-[#1c1009]
               "
-                  >
-                    <p
-                      className="
+            >
+              {/* TOP GOLD LINE */}
+              <div
+                className="
+                  absolute
+                  left-1/2
+                  top-0
+                  h-[2px]
+                  w-0
+                  -translate-x-1/2
+
+                  bg-gradient-to-r
+                  from-transparent
+                  via-gold
+                  to-transparent
+
+                  transition-all
+                  duration-500
+
+                  group-hover:w-32
+                  group-active:w-28
+
+                  sm:group-hover:w-40
+                  sm:group-active:w-36
+                "
+              />
+
+              {/* ARABIC */}
+              <p
+                className="
                   font-['Amiri']
                   text-lg
                   text-gilded
 
-                  sm:text-xl
-                  lg:text-[24px]
-                "
-                    >
-                      {c.arabic}
-                    </p>
-
-                    <h3
-                      className="
-                  mt-0.5
-                  font-display
-                  text-xl
-                  text-white
-                  transition-colors
+                  transition-all
                   duration-300
-                  group-hover:text-gilded
 
-                  sm:text-[24px]
-                  lg:text-[28px]
+                  group-hover:scale-105
+                  group-hover:text-[#f8e7b0]
+
+                  group-active:scale-105
+                  group-active:text-[#f8e7b0]
+
+                  sm:text-xl
                 "
-                    >
-                      {c.label}
-                    </h3>
+              >
+                {c.arabic}
+              </p>
 
-                    <p
-                      className="
-                  mx-auto
-                  mt-2
-                  max-w-xl
+              {/* MAIN TITLE */}
+              <h3
+                className="
+                  mt-1
+                  font-serif
+                  text-3xl
+                  tracking-[0.15em]
+                  text-[#f3e5ca]
+
+                  transition-all
+                  duration-300
+
+                  group-hover:text-[#f8e7b0]
+                  group-active:text-[#f8e7b0]
+
+                  sm:text-4xl
+                  lg:text-5xl
+                "
+              >
+                {c.title}
+              </h3>
+
+              {/* COLLECTION */}
+              <p
+                className="
+                  mt-1
+                  font-sans
                   text-xs
-                  leading-5
-                  text-gray-300
-
-                  sm:text-sm
-                  sm:leading-5
-                "
-                    >
-                      {c.copy}
-                    </p>
-
-                    <div
-                      className="
-                  mt-3
-                  inline-flex
-                  items-center
-                  gap-2
-                  text-[9px]
                   font-semibold
                   uppercase
-                  tracking-[0.18em]
+                  tracking-[0.35em]
                   text-gilded
-                  transition-transform
+
+                  transition-all
                   duration-300
-                  group-hover:translate-x-2
+
+                  group-hover:tracking-[0.42em]
+                  group-active:tracking-[0.40em]
+
+                  sm:text-sm
                 "
-                    >
-                      <span>Discover Collection</span>
-                      <span>→</span>
-                    </div>
-                  </div>
-                </Link>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+              >
+                {c.subtitle}
+              </p>
+
+              {/* DESCRIPTION */}
+              <div
+                className="
+                  mt-5
+                  font-serif
+                  text-sm
+                  leading-relaxed
+                  text-gray-300
+
+                  sm:text-base
+                "
+              >
+                <p>{c.line1}</p>
+
+                <p className="mt-0.5 text-gray-300">
+                  {c.line2}
+                </p>
+              </div>
+
+              {/* ================= BUTTON ================= */}
+              <span
+                className="
+                  group/button
+                  relative
+                  mt-6
+                  inline-flex
+                  items-center
+                  justify-center
+                  gap-3
+                  overflow-hidden
+
+                  rounded-full
+
+                  border
+                  border-gold/60
+
+                  bg-transparent
+
+                  px-7
+                  py-2.5
+
+                  text-[11px]
+                  font-semibold
+                  uppercase
+                  tracking-[0.2em]
+                  text-gilded
+
+                  transition-all
+                  duration-300
+                  ease-out
+
+                  /* DESKTOP HOVER */
+                  hover:-translate-y-1
+                  hover:border-gold
+                  hover:bg-gold/10
+                  hover:text-[#f8e7b0]
+                  hover:shadow-[0_0_22px_rgba(212,175,55,0.45)]
+
+                  /* MOBILE TOUCH */
+                  active:scale-95
+                  active:border-gold
+                  active:bg-gold/20
+                  active:text-[#f8e7b0]
+                  active:shadow-[0_0_30px_rgba(212,175,55,0.65)]
+
+                  sm:px-8
+                  sm:py-3
+                  sm:text-xs
+
+                  lg:px-9
+                  lg:py-3
+                "
+              >
+                {/* BUTTON GOLD SHINE */}
+                <span
+                  className="
+                    pointer-events-none
+                    absolute
+                    inset-0
+                    -translate-x-full
+
+                    bg-gradient-to-r
+                    from-transparent
+                    via-gold/20
+                    to-transparent
+
+                    transition-transform
+                    duration-700
+
+                    group-hover/button:translate-x-full
+                    group-active/button:translate-x-full
+                  "
+                />
+
+                <span className="relative z-10">
+                  {c.buttonText}
+                </span>
+
+                {/* ARROW */}
+                <span
+                  className="
+                    relative
+                    z-10
+                    text-xs
+
+                    transition-all
+                    duration-300
+                    ease-out
+
+                    group-hover/button:translate-x-1
+                    group-hover/button:text-[#f8e7b0]
+
+                    group-active/button:translate-x-1
+                    group-active/button:text-[#f8e7b0]
+
+                    sm:text-sm
+                  "
+                >
+                  →
+                </span>
+              </span>
+            </div>
+          </Link>
+        </motion.div>
+      ))}
+    </div>
+  </div>
+</section>
+
+
+
       {/* =========================================================
           BEST SELLERS
       ========================================================= */}

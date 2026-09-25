@@ -48,7 +48,7 @@ type CartToast = {
    CONSTANTS
 ========================================================= */
 
-const ATTAR_SERIES = ["floral", "sweet", "woody", "oud-oudh", "fresh", "traditional"];
+const ATTAR_SERIES = ["floral", "sweet", "woody", "oud-oudh", "fresh", "traditional","musk"];
 
 const ITEMS_PER_PAGE = 8;
 
@@ -91,6 +91,11 @@ const CATEGORY_FILTERS = [
     label: "Traditional",
     value: "traditional",
     icon: Crown,
+  },
+  {
+    label: "Musk",
+    value: "musk",
+    icon: Sparkles,
   },
 ];
 
@@ -187,13 +192,11 @@ function getProductMrp(product: Product, price: number) {
 }
 
 function getProductDiscount(product: Product, price: number, mrp: number) {
-  if (mrp > price) {
-    return Math.round(((mrp - price) / mrp) * 100);
-  }
-
-  return getNumericValue(product?.discount ?? product?.discountPercentage, 0);
+  return getNumericValue(
+    product?.discount ?? product?.discountPercentage,
+    0,
+  );
 }
-
 /* =========================================================
    CART TOAST
 ========================================================= */
@@ -845,19 +848,19 @@ function AttarPageProductCard({
       {/* CONTENT */}
       <div className="relative z-10 flex flex-1 flex-col p-3.5 sm:p-5 lg:p-6">
         {/* Name */}
-        <h3
-          className="
-            font-display font-medium leading-[1.08]
-            tracking-[-0.02em] text-[#f8f1df]
-            text-[18px]
-            sm:text-[21px]
-            lg:text-[25px]
-            transition-colors duration-300
-            group-hover:text-[#f5d76e]
-          "
-        >
-          {name}
-        </h3>
+       <h3
+  className="
+    font-display lining-nums font-medium leading-[1.08]
+    tracking-[-0.02em] text-[#f8f1df]
+    text-[18px]
+    sm:text-[21px]
+    lg:text-[25px]
+    transition-colors duration-300
+    group-hover:text-[#f5d76e]
+  "
+>
+  {name}
+</h3>
 
         {/* Notes */}
         <p className="mt-2 line-clamp-2 min-h-[30px] text-[9px] font-medium uppercase leading-[1.5] tracking-[0.12em] text-[#d4af37]/70 sm:text-[10px] sm:tracking-[0.16em]">

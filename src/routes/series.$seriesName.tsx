@@ -529,19 +529,19 @@ function SeriesProductCard({
       <div className="relative z-10 flex flex-1 flex-col p-3.5 sm:p-5 lg:p-6">
         {/* Name */}
 
-        <h3
-          className="
-            font-display font-medium leading-[1.08]
-            tracking-[-0.02em] text-[#f8f1df]
-            text-[18px]
-            sm:text-[21px]
-            lg:text-[25px]
-            transition-colors duration-300
-            group-hover:text-[#f5d76e]
-          "
-        >
-          {product.name}
-        </h3>
+       <h3
+  className="
+    font-display lining-nums font-medium leading-[1.08]
+    tracking-[-0.02em] text-[#f8f1df]
+    text-[18px]
+    sm:text-[21px]
+    lg:text-[25px]
+    transition-colors duration-300
+    group-hover:text-[#f5d76e]
+  "
+>
+  {product.name}
+</h3>
 
         {/* Notes */}
 

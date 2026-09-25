@@ -49,6 +49,10 @@ const attarLinks = [
     slug: "oud-oudh",
     label: "🖤 Oud / Oudh — Rich & Royal",
   },
+ {
+  slug: "musk",
+  label: "🤍 Musk — Soft & Sensual",
+},
   
 ];
 

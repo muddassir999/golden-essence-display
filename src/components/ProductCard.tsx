@@ -3177,44 +3177,45 @@ export function ProductCard({
         >
           {/* NAME */}
 
-          <h3
-            className={`
-              line-clamp-2
-              min-h-[38px]
+         <h3
+  className={`
+    line-clamp-2
+    min-h-[38px]
 
-              break-words
+    break-words
 
-              font-display
+    font-display
+    lining-nums
 
-              text-[17px]
-              font-semibold
-              leading-[1.18]
+    text-[17px]
+    font-semibold
+    leading-[1.18]
 
-              tracking-[-0.01em]
+    tracking-[-0.01em]
 
-              text-foreground
+    text-foreground
 
-              transition-colors
-              duration-300
+    transition-colors
+    duration-300
 
-              sm:min-h-[40px]
-              sm:text-[18px]
+    sm:min-h-[40px]
+    sm:text-[18px]
 
-              md:min-h-[42px]
-              md:text-[19px]
+    md:min-h-[42px]
+    md:text-[19px]
 
-              lg:min-h-[44px]
-              lg:text-xl
+    lg:min-h-[44px]
+    lg:text-xl
 
-              ${
-                !isOutOfStock
-                  ? "group-hover:text-[#d4af37]"
-                  : ""
-              }
-            `}
-          >
-            {product.name}
-          </h3>
+    ${
+      !isOutOfStock
+        ? "group-hover:text-[#d4af37]"
+        : ""
+    }
+  `}
+>
+  {product.name}
+</h3>
 
           {/* RATING */}
 
@@ -3452,23 +3453,24 @@ export function ProductCard({
             </span>
 
             {product.mrp && (
-              <span
-                className="
-                  block
+           <span
+  className="
+    block
 
-                  text-[11px]
-                  font-medium
+    text-sm
+    font-medium
 
-                  text-muted-foreground
+    text-muted-foreground
 
-                  line-through
+    line-through
 
-                  sm:text-xs
-                  md:text-[13px]
-                "
-              >
-                M.R.P.: {product.mrp}
-              </span>
+    sm:text-base
+    md:text-[17px]
+    lg:text-lg
+  "
+>
+  M.R.P.: {product.mrp}
+</span>
             )}
           </div>
 

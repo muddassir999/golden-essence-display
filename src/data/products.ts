@@ -37,6 +37,16 @@ import ice from "@/assets/icebergs.png";
 import charlioe from "@/assets/charlies.png";
 import jannat from "@/assets/jannatul.png";
 import shan from "@/assets/shanayas.png";
+import musksafi from "@/assets/musksafi.png";
+import muskalthara from "@/assets/muskalthara.png";
+import muskalrijal from "@/assets/muskrijal.png";
+import tomfordcheerymoke from "@/assets/TomFordcherrysmoke.png";
+import sauagedior from "@/assets/sauagedior.png";
+import blackoud from "@/assets/blackoud.png";
+import tobacoo from "@/assets/tobacoo.png";
+import oudwood from "@/assets/po1.png";
+import kashmirioud from "@/assets/po2.png";
+import hawasrasasi from "@/assets/hawasrasasi.png";
 
 interface Product {
   id?: string | number;
@@ -155,7 +165,7 @@ export const seriesMap: Record<
     arabic: "عطور المسك",
     blurb:
       "Soft and elegant musk attars with clean, smooth and long-lasting character, designed for effortless everyday luxury.",
-    comingSoon: true,
+    comingSoon: false,
   },
 
   "traditional-al-musk": {
@@ -345,6 +355,7 @@ export const products: Product[] = [
     series: "floral",
     stock: 10,
   },
+  
 
   /* =========================================================
      SWEET
@@ -394,6 +405,20 @@ export const products: Product[] = [
     series: "sweet",
     stock: 10,
   },
+  {
+  id: "a-sweet-4",
+  name: "Tom Ford Cherry Smoke-40",
+  arabic: "توم فورد تشيري سموك",
+  notes: "Cherry · Smoky · Sweet",
+  price: "₹ 500",
+  mrp: "₹ 550",
+  discount: 14,
+  rating: 4.5,
+  reviews: 1112,
+  image: tomfordcheerymoke,
+  series: "sweet",
+  stock: 10,
+},
 
   /* =========================================================
      OUD
@@ -443,7 +468,62 @@ export const products: Product[] = [
     series: "oud-oudh",
     stock: 10,
   },
-
+{
+  id: "a-oud-4",
+  name: "Black Oud-35",
+  arabic: "عود أسود",
+  notes: "Oud · Woody · Smoky",
+  price: "₹ 500",
+  mrp: "₹ 550",
+  discount: 14,
+  rating: 4.5,
+  reviews: 1112,
+  image: blackoud,
+  series: "oud-oudh",
+  stock: 10,
+},
+{
+  id: "a-oud-5",
+  name: "Tom Ford Tobacco Oud-40",
+  arabic: "توم فورد توباكو عود",
+  notes: "Tobacco · Oud · Warm Spicy",
+  price: "₹ 500",
+  mrp: "₹ 550",
+  discount: 14,
+  rating: 4.5,
+  reviews: 1112,
+  image: tobacoo,
+  series: "oud-oudh",
+  stock: 10,
+},
+{
+  id: "a-oud-6",
+  name: "Oud Wood-35",
+  arabic: "عود وود",
+  notes: "Oud · Woody · Warm",
+  price: "₹ 500",
+  mrp: "₹ 550",
+  discount: 14,
+  rating: 4.5,
+  reviews: 1112,
+  image: oudwood,
+  series: "oud-oudh",
+  stock: 10,
+},
+{
+  id: "a-oud-7",
+  name: "Kashmiri Oud-35",
+  arabic: "عود كشميري",
+  notes: "Oud · Woody · Rich & Warm",
+  price: "₹ 500",
+  mrp: "₹ 550",
+  discount: 14,
+  rating: 4.5,
+  reviews: 1112,
+  image: kashmirioud,
+  series: "oud-oudh",
+  stock: 10,
+},
   /* =========================================================
      WOODY
   ========================================================= */
@@ -571,7 +651,34 @@ export const products: Product[] = [
     series: "fresh",
     stock: 10,
   },
-
+{
+  id: "a-fresh-6",
+  name: "Sauvage Dior-40",
+  arabic: "سوفاج ديور",
+  notes: "Woody · Fresh · Spicy",
+  price: "₹ 500",
+  mrp: "₹ 550",
+  discount: 14,
+  rating: 4.5,
+  reviews: 1112,
+  image: sauagedior,
+  series: "woody",
+  stock: 10,
+},
+{
+  id: "a-fresh-7",
+  name: "Hawas Rasasi-40",
+  arabic: "حواس رصاصي",
+  notes: "Fresh · Aquatic · Fruity",
+  price: "₹ 500",
+  mrp: "₹ 550",
+  discount: 14,
+  rating: 4.5,
+  reviews: 1112,
+  image: hawasrasasi,
+  series: "fresh",
+  stock: 10,
+},
   /* =========================================================
      FLORAL / FRUITY / HERBAL
   ========================================================= */
@@ -635,7 +742,51 @@ export const products: Product[] = [
     series: "floral",
     stock: 10,
   },
-
+   /* =========================================================
+     MUSK
+  ========================================================= */
+  {
+  id: "a-musk-1",
+  name: "Musk Saafi-35",
+  arabic: "مسك صافي",
+  notes: "Musk · Clean & Fresh",
+  price: "₹ 500",
+  mrp: "₹ 550",
+  discount: 14,
+  rating: 4.5,
+  reviews: 1112,
+  image: musksafi,
+  series: "musk",
+  stock: 10,
+},
+{
+  id: "a-musk-2",
+  name: "Musk Al Thara-40",
+  arabic: "مسك الثرى",
+  notes: "Musk · Soft & Elegant",
+  price: "₹ 500",
+  mrp: "₹ 550",
+  discount: 14,
+  rating: 4.5,
+  reviews: 1112,
+  image: muskalthara,
+  series: "musk",
+  stock: 10,
+},
+{
+  id: "a-musk-3",
+  name: "Musk  Rijali-35",
+  arabic: "مسك الرجال",
+  notes: "Musk · Warm & Woody",
+  price: "₹ 500",
+  mrp: "₹ 550",
+  discount: 14,
+  rating: 4.5,
+  reviews: 1112,
+  image: muskalrijal,
+  series: "musk",
+  stock: 10,
+},
   /* =========================================================
      EXISTING ATTAR COLLECTIONS
   ========================================================= */
@@ -760,8 +911,8 @@ export const products: Product[] = [
 ========================================================= */
 
 export const bestSellers = [
-  "a-woody-2",
-  "a-oud-3",
-  "a-fresh-1",
-  "a-fresh-4",
+  "a-musk-1",
+  "a-musk-2",
+  "a-musk-3",
+  "a-oud-7",
 ].map((id) => products.find((p) => p.id === id)!);
